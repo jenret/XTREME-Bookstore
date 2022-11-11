@@ -1,13 +1,13 @@
-package com.example.xtremebookstoresolo;
+package com.example.xtremebookstore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class XtremeBookstoreSoloApplication {
+public class XtremeBookstoreApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(XtremeBookstoreSoloApplication.class, args);
+        SpringApplication.run(XtremeBookstoreApplication.class, args);
     }
 
 }

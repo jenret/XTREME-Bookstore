@@ -1,4 +1,4 @@
-package com.example.xtremebookstoresolo;
+package com.example.xtremebookstore;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -8,7 +8,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 
-        return application.sources(XtremeBookstoreSoloApplication.class);
+        return application.sources(XtremeBookstoreApplication.class);
 
     }
 
