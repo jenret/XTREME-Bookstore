@@ -1,12 +1,13 @@
 package com.example.xtremebookstore.models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class BookModel {
     public int ISBN;
     private String title;
     private String author;
-    private Date publishDate;
+    private LocalDateTime publishDate;
     private String edition;
     private double purchasePrice;
 
@@ -34,11 +35,11 @@ public class BookModel {
         this.author = author;
     }
 
-    public Date getPublishDate() {
+    public LocalDateTime getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
+    public void setPublishDate(LocalDateTime publishDate) {
         this.publishDate = publishDate;
     }
 
@@ -58,7 +59,7 @@ public class BookModel {
         this.purchasePrice = purchasePrice;
     }
 
-    public BookModel(int ISBN, String title, String author, Date publishDate, String edition, double purchasePrice) {
+    public BookModel(int ISBN, String title, String author, LocalDateTime publishDate, String edition, double purchasePrice) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;

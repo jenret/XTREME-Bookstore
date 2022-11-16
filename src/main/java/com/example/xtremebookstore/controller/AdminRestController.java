@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminRestController {
+public class AdminRestController { //admin should be able to view sales of all book stores and retrieve the receipts
 }

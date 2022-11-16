@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/book")
-public class BookRestController {
+public class BookRestController { //add CRUD operations in here
 }

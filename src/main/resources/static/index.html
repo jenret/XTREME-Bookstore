@@ -8,8 +8,23 @@
         //ISBN will ID
         //keep track of what store the book is available
 
-        function getBooks() {
+        //so when an employee logs in, make visible the receipt form
+        //if admin, show how well the stores are doing, show sales etc
+        //render the login first, and then ^
+        function login() {
 
+        }
+
+        function getBooks() {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                    var objects = JSON.parse(this.responseText);
+                    renderBooks(objects);
+                }
+            }
+            xmlHttp.open("GET", "http://localhost:8080/book/findAll", true);
+            xmlHttp.send();
         }
 
         function renderBooks(books) {
@@ -37,11 +52,28 @@
         }
 
         function sendBackReceipt() {
-
-        }
-
-        function addSale() {
-
+            var id = document.getElementById("id").value;
+            var name = document.getElementById("name").value;
+            var weapon = document.getElementById("weaponType").value;
+            var object = {
+                "id": id,
+                "name": name,
+                "weaponType": weapon
+            }
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("POST", "http://localhost:8080/employee");
+            xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
+            xmlHttp.onreadystatechange = function () {
+                console.log("Ready state ", this.status);
+                if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                    console.log("Successfully posted");
+                    getEntries();
+                }
+            }
+            xmlHttp.send(JSON.stringify(object));
+            var id = document.getElementById("id").value = "";
+            var name = document.getElementById("name").value = "";
+            var weapon = document.getElementById("weaponType").value = "";
         }
 
         window.onload = function () {
@@ -58,23 +90,37 @@
 <h1>Xtreme <br/> Bookstore</h1>
 <h1>Hello Valued Employee</h1>
 
-<div>
+<div id="login">
+    <h2>Admins Only Page</h2>
+    <label>Username</label>
+    <input type="text" id="username">
+    <br/>
+    <label>Password</label>
+    <input type="password" id="password">
+    <br/>
+    <br/>
+</div>
+
+<div id="receiptForm">
     <label>ISBN</label>
-    <input type="text"/>
+    <input type="text" id="ISBN"/>
+    <br/>
+    <label>Title</label>
+    <input type="text" id="title"/>
     <br/>
     <label>Author</label>
-    <input type="text"/>
+    <input type="text" id="author"/>
     <br/>
     <label>Publish Date</label>
-    <input type="text"/>
+    <input type="text" id="publishDate"/>
     <br/>
     <label>Edition</label>
-    <input type="text"/>
+    <input type="text" id="edition"/>
     <br/>
     <label>Price</label>
-    <input type="text"/>
+    <input type="text" id="price"/>
     <br/>
-    <button onclick="addSale();">Add Sale</button>
+    <button onclick="sendBackReceipt();">Add Sale</button>
 </div>
 </body>
 </html>
