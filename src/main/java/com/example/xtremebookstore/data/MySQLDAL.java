@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class MySQLDAL {
     //CRUD
-    private String url = "xtreme-bookstore.cv9cd3sfovyv.us-west-2.rds.amazonaws.com";
+    private String url = "jdbc:mysql://xtreme-bookstore.cv9cd3sfovyv.us-west-2.rds.amazonaws.com/XTreme-Bookstore?allowPublicKeyRetrieval=true&useSSL=false";
     private String user = "admin";
     private String password = "PRO150db";
     //USERS Table
