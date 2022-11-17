@@ -4,18 +4,18 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class BookModel {
-    public int ISBN;
+    public String ISBN;
     private String title;
     private String author;
     private Date publishDate;
     private String edition;
     private double purchasePrice;
 
-    public int getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(int ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 
@@ -59,7 +59,7 @@ public class BookModel {
         this.purchasePrice = purchasePrice;
     }
 
-    public BookModel(int ISBN, String title, String author, Date publishDate, String edition, double purchasePrice) {
+    public BookModel(String ISBN, String title, String author, Date publishDate, String edition, double purchasePrice) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;

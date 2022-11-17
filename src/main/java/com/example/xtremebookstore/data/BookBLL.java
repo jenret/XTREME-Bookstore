@@ -10,43 +10,27 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+//BLLS should have stuff that manipulates data
 public class BookBLL {
-
-    String url = "xtreme-bookstore.cv9cd3sfovyv.us-west-2.rds.amazonaws.com";
+    String url = "jdbc:mysql://xtreme-bookstore.cv9cd3sfovyv.us-west-2.rds.amazonaws.com/XTreme-Bookstore?allowPublicKeyRetrieval=true&useSSL=false";
     String user = "admin";
-    String password = "admin";
+    String password = "PRO150db";
+    BookDAL bDAL = new BookDAL();
 
-    public void addBook(BookModel bookModel) {
-        List<BookModel> bookModelList = findAll();
-    }
+    public void addBook(BookModel object) {
+        List<BookModel> bookModel = bDAL.findAll();
+        bookModel.add(object);
 
-    public List<BookModel> findAll() {
-        String sql = "Select * from  `XTreme-Bookstore`.books";
-        List<BookModel> bookModel = new ArrayList<>();
-        try {
+        String sql = "Insert into `XTreme-Bookstore`.books (ISBN, Title, Author, ) Values ()";
+        try{
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                BookModel books = new BookModel(rs.getInt("ISBN"),
-                        rs.getString("Title"),
-                        rs.getString("Author"),
-                        rs.getDate("publishDate"),
-                        rs.getString("Edition"),
-                        rs.getDouble("purchasePrice"));
-                bookModel.add(books);
-                System.out.print(rs.getInt("ISBN") + " ");
-                System.out.print(rs.getString("Title") + " ");
-                System.out.print(rs.getString("Author") + " ");
-                System.out.print(rs.getDate("publishDate") + " ");
-                System.out.print(rs.getString("Edition") + " ");
-                System.out.print(rs.getDouble("purchasePrice") + " ");
-
-            }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
-        return bookModel;
+
     }
+
+
 
 }
