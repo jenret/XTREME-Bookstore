@@ -15,6 +15,16 @@
 
         }
 
+        //this is an example function that shows and hides elements
+        // function myFunction() {
+        //     var x = document.getElementById("myDIV");
+        //     if (x.style.display === "none") {
+        //         x.style.display = "block";
+        //     } else {
+        //         x.style.display = "none";
+        //     }
+        // }
+
         function getBooks() {
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function () {
@@ -87,18 +97,23 @@
 
 </nav>
 <body>
-<h1>Xtreme <br/> Bookstore</h1>
-<h1>Hello Valued Employee</h1>
+<h1>Xtreme Bookstore</h1>
+<h2>Hello Valued Employee</h2>
 
 <div id="login">
-    <h2>Admins Only Page</h2>
+    <h2>Login</h2>
     <label>Username</label>
     <input type="text" id="username">
     <br/>
     <label>Password</label>
     <input type="password" id="password">
     <br/>
+    <button type="submit">Login</button>
     <br/>
+</div>
+
+<div id="logout">
+    <button type="submit">Logout</button>
 </div>
 
 <div id="receiptForm">
