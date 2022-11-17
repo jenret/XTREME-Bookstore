@@ -7,7 +7,7 @@ public class BookModel {
     public int ISBN;
     private String title;
     private String author;
-    private LocalDateTime publishDate;
+    private Date publishDate;
     private String edition;
     private double purchasePrice;
 
@@ -35,11 +35,11 @@ public class BookModel {
         this.author = author;
     }
 
-    public LocalDateTime getPublishDate() {
+    public Date getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(LocalDateTime publishDate) {
+    public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
     }
 
@@ -59,7 +59,7 @@ public class BookModel {
         this.purchasePrice = purchasePrice;
     }
 
-    public BookModel(int ISBN, String title, String author, LocalDateTime publishDate, String edition, double purchasePrice) {
+    public BookModel(int ISBN, String title, String author, Date publishDate, String edition, double purchasePrice) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
