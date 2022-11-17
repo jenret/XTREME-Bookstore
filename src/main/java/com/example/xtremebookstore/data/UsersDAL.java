@@ -5,7 +5,7 @@ import com.example.xtremebookstore.models.UserModel;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class MySQLDAL {
+public class UsersDAL {
     //CRUD
     private String url = "jdbc:mysql://xtreme-bookstore.cv9cd3sfovyv.us-west-2.rds.amazonaws.com/XTreme-Bookstore?allowPublicKeyRetrieval=true&useSSL=false";
     private String user = "admin";
@@ -20,7 +20,7 @@ public class MySQLDAL {
             pst.setString(1,userM.getUsername());
             pst.setString(2,userM.getPassword());
             pst.setString(3,userM.getRole());
-            pst.setInt(4,userM.getStoreID());
+            pst.setString(4,userM.getStoreID());
             pst.execute();
         }catch (SQLException e){
             e.printStackTrace();
@@ -38,7 +38,7 @@ public class MySQLDAL {
                         users.getString(2),
                         users.getString(3),
                         users.getString(4),
-                        users.getInt(5));
+                        users.getString(5));
                 userModels.add(curUser);
             }
             return userModels;

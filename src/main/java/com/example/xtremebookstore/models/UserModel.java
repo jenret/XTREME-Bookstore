@@ -5,7 +5,7 @@ public class UserModel {
     private String username;
     private String password;
     private String role;
-    private int storeID;
+    private String storeID;
 
     public int getId() {
         return id;
@@ -39,15 +39,15 @@ public class UserModel {
         this.role = role;
     }
 
-    public int getStoreID() {
+    public String getStoreID() {
         return storeID;
     }
 
-    public void setStoreID(int storeID) {
+    public void setStoreID(String storeID) {
         this.storeID = storeID;
     }
 
-    public UserModel(int id, String username, String password, String role, int storeID) {
+    public UserModel(int id, String username, String password, String role, String storeID) {
         this.id = id;
         this.username = username;
         this.password = password;
