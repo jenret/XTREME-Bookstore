@@ -11,8 +11,33 @@
         //so when an employee logs in, make visible the receipt form
         //if admin, show how well the stores are doing, show sales etc
         //render the login first, and then ^
-        function login() {
 
+        var authHeaderValue = null;
+        var username = null;
+        var password = null;
+        //this is the function for the login
+        function login() {
+            username = document.getElementById('txtUsername').value;
+            password = document.getElementById('txtPassword').value;
+            authHeaderValue = "Basic " + btoa(username + ":" + password);
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", "/login");
+            xmlHttp.setRequestHeader('Authorization', authHeaderValue);
+            xmlHttp.onreadystatechange = function () {
+                if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                    console.log("LOGIN SUCCESS");
+                    //stop showing login
+                    //show logout and welcome message
+                    //save info for the session
+                    userStorage(username, password);
+                }
+                else if (this.readyState == XMLHttpRequest.DONE && this.status == 401) {
+                    document.getElementById("errorMsg").innerHTML = "Invalid Username or Password";
+                    //keep showing login
+                }
+            }
+            xmlHttp.send();
         }
 
         //this is an example function that shows and hides elements
@@ -24,6 +49,13 @@
         //         x.style.display = "none";
         //     }
         // }
+
+        //storage for username and password
+        //session based
+        function userStorage(strUsername, strPassword) {
+            sessionStorage.setItem("username", strUsername);
+            sessionStorage.setItem("password", strPassword);
+        }
 
         function getBooks() {
             var xmlHttp = new XMLHttpRequest();
@@ -98,21 +130,22 @@
 </nav>
 <body>
 <h1>Xtreme Bookstore</h1>
-<h2>Hello Valued Employee</h2>
 
 <div id="login">
     <h2>Login</h2>
     <label>Username</label>
-    <input type="text" id="username">
+    <input type="text" id="txtUsername">
     <br/>
     <label>Password</label>
-    <input type="password" id="password">
+    <input type="password" id="txtPassword">
     <br/>
-    <button type="submit">Login</button>
+    <button onclick="login();">Login</button>
     <br/>
+    <p id="errorMsg"></p>
 </div>
 
 <div id="logout">
+    <h2 id="welcomeMsg"></h2>
     <button type="submit">Logout</button>
 </div>
 
