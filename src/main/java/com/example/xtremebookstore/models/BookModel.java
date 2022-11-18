@@ -1,14 +1,13 @@
 package com.example.xtremebookstore.models;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.sql.Date;
 
 public class BookModel {
     public String ISBN;
     private String title;
-    private String author;
+    private int author;
+    private int edition;
     private Date publishDate;
-    private String edition;
     private double purchasePrice;
 
     public String getISBN() {
@@ -27,15 +26,15 @@ public class BookModel {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public int getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(int author) {
         this.author = author;
     }
 
-    public Date getPublishDate() {
+    public java.sql.Date getPublishDate() {
         return publishDate;
     }
 
@@ -43,11 +42,11 @@ public class BookModel {
         this.publishDate = publishDate;
     }
 
-    public String getEdition() {
+    public int getEdition() {
         return edition;
     }
 
-    public void setEdition(String edition) {
+    public void setEdition(int edition) {
         this.edition = edition;
     }
 
@@ -59,7 +58,7 @@ public class BookModel {
         this.purchasePrice = purchasePrice;
     }
 
-    public BookModel(String ISBN, String title, String author, Date publishDate, String edition, double purchasePrice) {
+    public BookModel(String ISBN, String title, int author, Date publishDate, int edition, double purchasePrice) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
@@ -68,6 +67,6 @@ public class BookModel {
         this.purchasePrice = purchasePrice;
     }
 
-    public BookModel() {
+    public BookModel(String isbn, String title, int author, java.util.Date date, int edition, double purchasePrice) {
     }
 }

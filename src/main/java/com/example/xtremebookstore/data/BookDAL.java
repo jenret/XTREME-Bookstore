@@ -24,9 +24,9 @@ public class BookDAL {
             while (rs.next()) {
                 BookModel books = new BookModel(rs.getString("ISBN"),
                         rs.getString("Title"),
-                        rs.getString("Author"),
+                        rs.getInt("Author"),
                         rs.getDate("publishDate"),
-                        rs.getString("Edition"),
+                        rs.getInt("Edition"),
                         rs.getDouble("purchasePrice"));
                 bookModel.add(books);
                 System.out.print(rs.getString("ISBN") + " ");

@@ -1,13 +1,7 @@
 package com.example.xtremebookstore.data;
 
 import com.example.xtremebookstore.models.BookModel;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.sql.*;
 import java.util.List;
 
 //BLLS should have stuff that manipulates data
@@ -17,20 +11,37 @@ public class BookBLL {
     String password = "PRO150db";
     BookDAL bDAL = new BookDAL();
 
+    //add words
     public void addBook(BookModel object) {
         List<BookModel> bookModel = bDAL.findAll();
         bookModel.add(object);
 
-        String sql = "Insert into `XTreme-Bookstore`.books (ISBN, Title, Author, ) Values ()";
+        String sql = "Insert into `XTreme-Bookstore`.books (ISBN, Title, Author, Edition, publishDate, purchasePrice) Values (?,?,?,?,?,?)";
         try{
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, object.getISBN());
+            pst.setString(2, object.getTitle());
+            pst.setInt(3, object.getAuthor());
+            pst.setInt(4, object.getEdition());
+            pst.setDate(5, object.getPublishDate());
+            pst.setDouble(6, object.getPurchasePrice());
+            pst.executeUpdate();
         } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
-
-
+    //delete works
+    public void deleteBook(String ISBN){
+        String sql = "Delete from `XTreme-Bookstore`.books where ISBN = (?)";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, ISBN);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
