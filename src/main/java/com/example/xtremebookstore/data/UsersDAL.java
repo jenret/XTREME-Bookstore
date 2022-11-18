@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class UsersDAL {
     //CRUD
-    private String url = "jdbc:mysql://xtreme-bookstore.cv9cd3sfovyv.us-west-2.rds.amazonaws.com/XTreme-Bookstore?allowPublicKeyRetrieval=true&useSSL=false";
-    private String user = "admin";
-    private String password = "PRO150db";
+    private static String url = "jdbc:mysql://xtreme-bookstore.cv9cd3sfovyv.us-west-2.rds.amazonaws.com/XTreme-Bookstore?allowPublicKeyRetrieval=true&useSSL=false";
+    private static String user = "admin";
+    private static String password = "PRO150db";
     //USERS Table
-    public void createUser(UserModel userM){
+    public static void createUser(UserModel userM){
         String sql = "INSERT INTO users (username, password, role, storeID) values ((?),(?),(?),(?))";
         try{
             Connection con = DriverManager.getConnection(url,user,password);
@@ -25,8 +25,8 @@ public class UsersDAL {
             e.printStackTrace();
         }
     }
-    public ArrayList<UserModel> getAllUsers(){
-        String sql = "SELECT * FROM users_view";
+    public static ArrayList<UserModel> getAllUsers(){
+        String sql = "SELECT * FROM user_view";
         try{
             Connection con = DriverManager.getConnection(url,user,password);
             PreparedStatement pst = con.prepareStatement(sql);

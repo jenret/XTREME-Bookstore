@@ -1,5 +1,7 @@
 package com.example.xtremebookstore;
 
+import com.example.xtremebookstore.data.UsersDAL;
+import com.example.xtremebookstore.models.UserModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -34,8 +36,16 @@ public class SecurityConfig {
                 .password(passwordEncoder().encode("superAdmin"))
                 .roles("ADMIN")
                 .build();
-
         authMem.createUser(superAdmin);
+
+        for(UserModel user : UsersDAL.getAllUsers()) {
+            UserDetails newUser = User.withUsername(user.getUsername())
+                    .password(passwordEncoder().encode(user.getPassword()))
+                    .roles(user.getRole())
+                    .build();
+            authMem.createUser(newUser);
+        }
+
         return authMem;
     }
 
@@ -54,7 +64,7 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
-                .antMatchers(HttpMethod.GET, "/login").hasAnyRole("ADMIN", "EMPLOYEE")
+                .antMatchers(HttpMethod.GET, "/login").authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
