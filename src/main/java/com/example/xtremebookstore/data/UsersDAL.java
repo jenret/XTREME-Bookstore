@@ -19,25 +19,27 @@ public class UsersDAL {
             pst.setString(1,userM.getUsername());
             pst.setString(2,userM.getPassword());
             pst.setString(3,userM.getRole());
-            pst.setString(4,userM.getStoreID());
+            pst.setInt(4,userM.getStoreID());
             pst.execute();
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
     public ArrayList<UserModel> getAllUsers(){
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users_view";
         try{
             Connection con = DriverManager.getConnection(url,user,password);
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet users = pst.executeQuery();
             ArrayList<UserModel> userModels = new ArrayList<>();
             while(users.next()){
-                UserModel curUser = new UserModel(users.getInt(1),
+                UserModel curUser = new UserModel(
+                        users.getInt(1),
                         users.getString(2),
                         users.getString(3),
                         users.getString(4),
-                        users.getString(5));
+                        users.getInt(5),
+                        users.getString(6));
                 userModels.add(curUser);
             }
             return userModels;
