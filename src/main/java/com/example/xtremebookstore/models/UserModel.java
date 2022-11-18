@@ -5,7 +5,16 @@ public class UserModel {
     private String username;
     private String password;
     private String role;
-    private String storeID;
+    private int storeID;
+    private String fkStoreName;
+
+    public String getFkStoreName() {
+        return fkStoreName;
+    }
+
+    public void setFkStoreName(String fkStoreName) {
+        this.fkStoreName = fkStoreName;
+    }
 
     public int getId() {
         return id;
@@ -39,20 +48,21 @@ public class UserModel {
         this.role = role;
     }
 
-    public String getStoreID() {
+    public int getStoreID() {
         return storeID;
     }
 
-    public void setStoreID(String storeID) {
+    public void setStoreID(int storeID) {
         this.storeID = storeID;
     }
 
-    public UserModel(int id, String username, String password, String role, String storeID) {
+    public UserModel(int id, String username, String password, String role, int storeID,String fkStoreName) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
         this.storeID = storeID;
+        this.fkStoreName = fkStoreName;
     }
 
     public UserModel() {
