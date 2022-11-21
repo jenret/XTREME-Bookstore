@@ -36,7 +36,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         UserDetails superAdmin = User.withUsername("superAdmin")
                 .password(passwordEncoder().encode("superAdmin"))
                 .roles("ADMIN")
@@ -71,7 +71,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .httpBasic().authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())
                 .and()

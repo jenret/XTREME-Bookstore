@@ -2,10 +2,7 @@ package com.example.xtremebookstore.data;
 
 import com.example.xtremebookstore.models.ReceiptModel;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ReceiptDAL {
 
@@ -18,6 +15,12 @@ public class ReceiptDAL {
         try {
             Connection con = DriverManager.getConnection(url,user,password);
             PreparedStatement pst = con.prepareStatement(insert);
+            pst.setString(1, receiptModel.getBookISBN());
+            pst.setInt(2, receiptModel.getUserID());
+            pst.setInt(3, receiptModel.getStoreID());
+            pst.setDouble(4, receiptModel.getSalePrice());
+//            pst.setDate(5);
+//            pst.setDate(5, LocalDateTime.now());
         } catch (SQLException e) {
             e.printStackTrace();
         }
