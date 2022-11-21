@@ -1,15 +1,23 @@
 package com.example.xtremebookstore.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.provisioning.UserDetailsManager;
+import com.example.xtremebookstore.data.UsersDAL;
+import com.example.xtremebookstore.models.UserModel;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserRestController {
 
-    public void createUser() {
-
+    @PostMapping("")
+    public boolean createUser(@RequestBody UserModel userModel) {
+        try {
+            UsersDAL.createUser(userModel);
+            return true;
+        } catch (Exception e) {
+            System.out.println("ERROR createUser");
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }
