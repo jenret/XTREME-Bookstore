@@ -79,6 +79,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.GET, "/login").authenticated()
                 .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/receipts").authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

@@ -8,16 +8,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
 
     @Autowired
-    InMemoryUserDetailsManager inMemoryUserDetailsManager;
+    private InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
+    /**
+     * this endpoint only need the username, password, role, and storeID to write to the DB
+     */
     @PostMapping("")
     public boolean createUser(@RequestBody UserModel userModel) {
         try {
@@ -28,6 +33,17 @@ public class UserRestController {
             System.out.println("ERROR createUser");
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @GetMapping("")
+    public List<UserModel> getAllUsers() {
+        try {
+            return UsersDAL.getAllUsers();
+        } catch (Exception e) {
+            System.out.println("ERROR getAllUsers");
+            e.printStackTrace();
+            return null;
         }
     }
 

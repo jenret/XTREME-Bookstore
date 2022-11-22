@@ -11,16 +11,15 @@ public class ReceiptDAL {
     private static final String password = "PRO150db";
 
     public static void createReceipt(ReceiptModel receiptModel) {
-        String insert = "insert into sales (book, user, store, salePrice, timeOfSale) values (?, ?, ?, ?, ?)";
+        String insert = "insert into sales (bookID, userID, storeID, salePrice) values (?, ?, ?, ?)";
         try {
-            Connection con = DriverManager.getConnection(url,user,password);
+            Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(insert);
             pst.setString(1, receiptModel.getBookISBN());
             pst.setInt(2, receiptModel.getUserID());
             pst.setInt(3, receiptModel.getStoreID());
             pst.setDouble(4, receiptModel.getSalePrice());
-//            pst.setDate(5);
-//            pst.setDate(5, LocalDateTime.now());
+            pst.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
