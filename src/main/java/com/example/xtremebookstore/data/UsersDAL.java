@@ -48,4 +48,29 @@ public class UsersDAL {
         }
         return null;
     }
+
+    public static UserModel getUserByUsername(String username) {
+        String query = "select * from user_view where username = (?)";
+        try{
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, username);
+            ResultSet result = pst.executeQuery();
+            // TODO: 11/22/2022 users with the same username will mess this up. Fix???
+                // should usernames be unique?
+            result.next();
+            UserModel userModel = new UserModel(
+                    result.getInt(1),
+                    result.getString(2),
+                    result.getString(3),
+                    result.getString(4),
+                    result.getInt(5),
+                    result.getString(6));
+            return userModel;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
