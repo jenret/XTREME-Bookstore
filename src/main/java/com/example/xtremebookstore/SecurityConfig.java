@@ -81,6 +81,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/receipts").authenticated()
+                .antMatchers(HttpMethod.GET, "book/findAll").permitAll() //ben line, with this, allows the books to display
+                //.antMatchers(HttpMethod.POST, "book/create").hasAnyRole("ADMIN", "EMP")
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
