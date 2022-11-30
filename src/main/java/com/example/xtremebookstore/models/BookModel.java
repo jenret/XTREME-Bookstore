@@ -10,7 +10,7 @@ public class BookModel {
     private Date publishDate;
     private double purchasePrice;
 
-    public BookModel(String isbn, String title, int author, java.util.Date date, int edition, double purchasePrice) {
+    public BookModel() {
     }
 
     public BookModel(String ISBN, String title, int author, Date publishDate, int edition, double purchasePrice) {
