@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/styles.css">
     <style>
         table, th, td{
             border: 2px solid black;
@@ -35,6 +36,7 @@
                 if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                     console.log("LOGIN SUCCESS");
                     //stop showing login
+                    toggleLogin();
                     //show logout and welcome message
                     //save info for the session
                     userStorage(username, password);
@@ -55,6 +57,19 @@
         //         x.style.display = "none";
         //     }
         // }
+
+        function toggleLogin() {
+            var loginForm = document.getElementById("login");
+            var logoutBtn = document.getElementById("logout");
+
+            if (loginForm.style.display === "none") {
+                loginForm.style.display = "block";
+                logoutBtn.style.display = "none";
+            } else {
+                loginForm.style.display = "none";
+                logoutBtn.style.display = "block";
+            }
+        }
 
         //storage for username and password
         //session based
@@ -141,10 +156,6 @@
         function sendBackReceipt() {
             var ISBN = document.getElementById("ISBN").value;
             var price = document.getElementById("price").value;
-            // if(ISBN == ""|| title =="" || author ==""|| publish ==""|| price ==""){
-            //     var error = document.getElementById("handleError");
-            //     error.innerHTML = "Please Ensure all fields are filled"
-            // }
             var object = {
                 "bookISBN": ISBN,
                 "salePrice": price
@@ -181,7 +192,7 @@
     <ul id="bookList"></ul>
 </div>
 
-<div id="login">
+<div id="login" class="login">
     <h2>Login</h2>
     <label>Username</label>
     <input type="text" id="txtUsername">
@@ -194,12 +205,13 @@
     <p id="errorMsg"></p>
 </div>
 
-<div id="logout">
-    <h2 id="welcomeMsg"></h2>
-    <button type="submit">Logout</button>
+<div id="logout" class="logout">
+    <h2 id="welcomeMsg">test</h2>
+    <button type="submit" onclick="toggleLogin()">Logout</button>
 </div>
 
 <div id="receiptForm">
+<!-- Only require ISBN and price for the Add Sale-->
     <label>ISBN</label>
     <input type="text" id="ISBN" required/>
     <br/>
