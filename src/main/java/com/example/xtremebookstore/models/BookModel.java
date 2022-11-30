@@ -10,6 +10,18 @@ public class BookModel {
     private Date publishDate;
     private double purchasePrice;
 
+    public BookModel(String isbn, String title, int author, java.util.Date date, int edition, double purchasePrice) {
+    }
+
+    public BookModel(String ISBN, String title, int author, Date publishDate, int edition, double purchasePrice) {
+        this.ISBN = ISBN;
+        this.title = title;
+        this.author = author;
+        this.publishDate = publishDate;
+        this.edition = edition;
+        this.purchasePrice = purchasePrice;
+    }
+
     public String getISBN() {
         return ISBN;
     }
@@ -34,7 +46,7 @@ public class BookModel {
         this.author = author;
     }
 
-    public java.sql.Date getPublishDate() {
+    public Date getPublishDate() {
         return publishDate;
     }
 
@@ -56,17 +68,5 @@ public class BookModel {
 
     public void setPurchasePrice(double purchasePrice) {
         this.purchasePrice = purchasePrice;
-    }
-
-    public BookModel(String ISBN, String title, int author, Date publishDate, int edition, double purchasePrice) {
-        this.ISBN = ISBN;
-        this.title = title;
-        this.author = author;
-        this.publishDate = publishDate;
-        this.edition = edition;
-        this.purchasePrice = purchasePrice;
-    }
-
-    public BookModel(String isbn, String title, int author, java.util.Date date, int edition, double purchasePrice) {
     }
 }
