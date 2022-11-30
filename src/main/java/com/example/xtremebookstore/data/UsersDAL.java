@@ -56,16 +56,14 @@ public class UsersDAL {
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, username);
             ResultSet result = pst.executeQuery();
-            // TODO: 11/22/2022 users with the same username will mess this up. Fix???
-                // should usernames be unique?
             result.next();
             UserModel userModel = new UserModel(
-                    result.getInt(1),
-                    result.getString(2),
-                    result.getString(3),
-                    result.getString(4),
-                    result.getInt(5),
-                    result.getString(6));
+                    result.getInt("userID"),
+                    result.getString("username"),
+                    result.getString("password"),
+                    result.getString("role"),
+                    result.getInt("storeID"),
+                    result.getString("storeName"));
             return userModel;
         }catch (SQLException e){
             e.printStackTrace();
