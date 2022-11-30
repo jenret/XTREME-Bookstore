@@ -138,28 +138,19 @@
             }
         }
 
-        //SIMPLY SAMPLE CODE NO WORKY
         function sendBackReceipt() {
             var ISBN = document.getElementById("ISBN").value;
-            var title = document.getElementById("title").value;
-            var author = document.getElementById("author").value;
-            var publish = document.getElementById("publishDate").value;
-            var edition = document.getElementById("edition").value;
             var price = document.getElementById("price").value;
             // if(ISBN == ""|| title =="" || author ==""|| publish ==""|| price ==""){
             //     var error = document.getElementById("handleError");
             //     error.innerHTML = "Please Ensure all fields are filled"
             // }
             var object = {
-                "ISBN": ISBN,
-                "title": title,
-                "author": author,
-                "publishDate": publish,
-                "edition": edition,
-                "price": price
+                "bookISBN": ISBN,
+                "salePrice": price
             }
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("POST", "http://localhost:8080/book/create");
+            xmlHttp.open("POST", "http://localhost:8080/receipts");
             xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
             xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
             xmlHttp.onreadystatechange = function () {
@@ -171,10 +162,6 @@
             }
             xmlHttp.send(JSON.stringify(object));
             var ISBN = document.getElementById("ISBN").value = "";
-            var title = document.getElementById("title").value = "";
-            var author = document.getElementById("author").value = "";
-            var publish = document.getElementById("publishDate").value = "";
-            var edition = document.getElementById("edition").value = "";
             var price = document.getElementById("price").value = "";
         }
 
@@ -217,13 +204,13 @@
     <input type="text" id="ISBN" required/>
     <br/>
     <label>Title</label>
-    <input type="text" id="title" required/>
+    <input type="text" id="title"/>
     <br/>
     <label>Author</label>
-    <input type="text" id="author" required/>
+    <input type="text" id="author"/>
     <br/>
     <label>Publish Date</label>
-    <input type="date" id="publishDate" required/>
+    <input type="date" id="publishDate"/>
     <br/>
     <label>Edition</label>
     <input type="text" id="edition"/>
