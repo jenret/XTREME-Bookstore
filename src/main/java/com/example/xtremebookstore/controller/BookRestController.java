@@ -3,6 +3,7 @@ package com.example.xtremebookstore.controller;
 import com.example.xtremebookstore.data.BookBLL;
 import com.example.xtremebookstore.data.BookDAL;
 import com.example.xtremebookstore.models.BookModel;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class BookRestController { //add CRUD operations in here
 
     @PostMapping("/create")
     @ResponseBody
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMP')")
     public void createBook(@RequestBody BookModel object){
         bBLL.addBook(object);
     }

@@ -21,6 +21,7 @@
             username = document.getElementById('txtUsername').value;
             password = document.getElementById('txtPassword').value;
             authHeaderValue = "Basic " + btoa(username + ":" + password);
+            var form = document.getElementById("receiptForm");
 
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", "/login");
@@ -30,6 +31,7 @@
                     console.log("LOGIN SUCCESS");
                     //stop showing login
                     toggleLogin();
+                    form.style.display = "block";
                     //show logout and welcome message
                     //save info for the session
                     userStorage(username, password);
@@ -54,13 +56,16 @@
         function toggleLogin() {
             var loginForm = document.getElementById("login");
             var logoutBtn = document.getElementById("logout");
+            var form = document.getElementById("receiptForm");
 
-            if (loginForm.style.display === "none") {
+            if (loginForm.style.display === "none") { //if logout form is invisible
                 loginForm.style.display = "block";
                 logoutBtn.style.display = "none";
+                form.style.display = "none"
             } else {
                 loginForm.style.display = "none";
                 logoutBtn.style.display = "block";
+
             }
         }
 
@@ -71,6 +76,7 @@
             sessionStorage.setItem("password", strPassword);
         }
 
+        //addBook finally works
         function addBook() {
             var ISBN = document.getElementById("ISBN").value;
             var title = document.getElementById("title").value;
@@ -108,7 +114,6 @@
             var edition = document.getElementById("edition").value = "";
             var price = document.getElementById("price").value = "";
         }
-
 
         //all good
         function getAllBooks() {
@@ -172,6 +177,8 @@
         }
 
         window.onload = function () {
+            var form = document.getElementById("receiptForm");
+            form.style.display = "none";
             getAllBooks();
         }
 
