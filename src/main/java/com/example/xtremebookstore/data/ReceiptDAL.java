@@ -2,6 +2,7 @@ package com.example.xtremebookstore.data;
 
 import com.example.xtremebookstore.models.ReceiptModel;
 import com.example.xtremebookstore.models.SalesPerBook;
+import com.example.xtremebookstore.models.SalesPerStore;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -122,6 +123,30 @@ public class ReceiptDAL {
             }
             return results;
         } catch (Exception e) {
+            System.out.println("Error getBookSalesPerMonth");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<SalesPerStore> getStoreSalesPerMonth(int month) {
+        String query = "select storeName, sum(salePrice) as salesTotal, count(salesID) as numberOfSales " +
+                "from receipts_view month(timeOfSale) = ? and year(timeOfSale) = year(now()) group by title";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, month);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<SalesPerStore> results = new ArrayList<>();
+            while (rs.next()) {
+                results.add(new SalesPerStore(rs.getString("storeName"),
+                        rs.getDouble("salesTotal"),
+                        rs.getInt("numberOfSales")));
+            }
+            return results;
+        } catch (Exception e) {
+            System.out.println("Error getStoreSalesPerMonth");
+            e.printStackTrace();
             return null;
         }
     }
