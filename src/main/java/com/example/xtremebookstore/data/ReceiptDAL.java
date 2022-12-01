@@ -1,10 +1,12 @@
 package com.example.xtremebookstore.data;
 
 import com.example.xtremebookstore.models.ReceiptModel;
+import com.example.xtremebookstore.models.SalesPerBook;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ReceiptDAL {
 
@@ -102,6 +104,26 @@ public class ReceiptDAL {
             sqle.printStackTrace();
         }
         return receipts;
+    }
+
+    public static ArrayList<SalesPerBook> getBookSalesPerMonth(int month) {
+        String query = "select title, count(salesID) as numberOfSales, sum(salePrice) as salesTotal " +
+                "from receipts_view where month(timeOfSale) = ? and year(timeOfSale) = year(now()) group by title";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, month);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<SalesPerBook> results = new ArrayList<>();
+            while (rs.next()) {
+                results.add(new SalesPerBook(rs.getString("title"),
+                        rs.getDouble("salesTotal"),
+                        rs.getInt("numberOfSales")));
+            }
+            return results;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
