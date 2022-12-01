@@ -54,13 +54,24 @@
         function toggleLogin() {
             var loginForm = document.getElementById("login");
             var logoutBtn = document.getElementById("logout");
+            var receiptForm = document.getElementById("receiptForm");
+            var bookArea = document.getElementById("bookArea");
+            var graphArea = document.getElementById("graphArea");
 
             if (loginForm.style.display === "none") {
+                //show login
                 loginForm.style.display = "block";
                 logoutBtn.style.display = "none";
+                receiptForm.style.display = "none";
+                bookArea.style.display = "none";
+                graphArea.style.display = "none";
             } else {
+                //hide login
                 loginForm.style.display = "none";
                 logoutBtn.style.display = "block";
+                receiptForm.style.display = "block";
+                bookArea.style.display = "block";
+                graphArea.style.display = "block";
             }
         }
 
@@ -183,10 +194,10 @@
 </nav>
 <body>
 <h1>Xtreme Bookstore</h1>
-<div>
+<div id="bookArea" class="bookArea">
     <ul id="bookList"></ul>
 </div>
-
+<br>
 <div id="login" class="login">
     <h2>Login</h2>
     <label>Username</label>
@@ -199,13 +210,14 @@
     <br/>
     <p id="errorMsg"></p>
 </div>
-
 <div id="logout" class="logout">
     <h2 id="welcomeMsg">test</h2>
     <button type="submit" onclick="toggleLogin()">Logout</button>
 </div>
-
-<div id="receiptForm">
+<br>
+<div id="handleError"></div>
+<br>
+<div id="receiptForm" class="receiptForm">
 <!-- Only require ISBN and price for the Add Sale-->
     <label>ISBN</label>
     <input type="text" id="ISBN"/>
@@ -231,10 +243,8 @@
     <button onclick="sendBackReceipt();">Add Sale</button>
     <button onclick="addBook();">Add Book</button>
 </div>
-
-<div id="handleError"></div>
-
-<div id="graphArea">
+<br>
+<div id="graphArea" class="graphArea">
     <div id="monthlyConsumable"></div>
     <div id="monthlyCustomer"></div>
     <div id="monthlySales"></div>

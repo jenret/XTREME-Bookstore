@@ -6,6 +6,18 @@
     display: none;
 }
 
+.receiptForm {
+    display: none;
+}
+
+.bookArea {
+    display: none;
+}
+
+.graphArea {
+    display: none;
+}
+
 table, th, td{
     border: 2px solid black;
     text-align: center;
