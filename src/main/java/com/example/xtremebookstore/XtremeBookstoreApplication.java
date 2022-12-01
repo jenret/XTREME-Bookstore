@@ -17,7 +17,7 @@ public class XtremeBookstoreApplication {
         bDAL.findAll();
 
         //Date date = new Date(2022, 10,10);
-        //BookModel object = new BookModel("1234512345123", "Delete Me", 1, date, 0, 69.69);
+        //BookModel object = new BookModel("1112223334445", "Delete Me", 1, date, 0, 69.69);
         //bBLL.addBook(object);
         //bBLL.deleteBook("1234512345123");
         //bDAL.findAll();

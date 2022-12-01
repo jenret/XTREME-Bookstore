@@ -25,15 +25,15 @@ public class BookDAL {
                 BookModel books = new BookModel(rs.getString("ISBN"),
                         rs.getString("Title"),
                         rs.getInt("Author"),
-                        rs.getDate("publishDate"),
                         rs.getInt("Edition"),
+                        rs.getString("publishDate"),
                         rs.getDouble("purchasePrice"));
                 bookModel.add(books);
                 System.out.print(rs.getString("ISBN") + " ");
                 System.out.print(rs.getString("Title") + " ");
                 System.out.print(rs.getString("Author") + " ");
-                System.out.print(rs.getDate("publishDate") + " ");
                 System.out.print(rs.getString("Edition") + " ");
+                System.out.print(rs.getString("publishDate") + " ");
                 System.out.println(" " + rs.getDouble("purchasePrice") + " ");
 
             }
@@ -54,8 +54,8 @@ public class BookDAL {
                 BookModel found = new BookModel(rs.getString("ISBN"),
                         rs.getString("Title"),
                         rs.getInt("Author"),
-                        rs.getDate("PublishDate"),
                         rs.getInt("Edition"),
+                        rs.getString("PublishDate"),
                         rs.getDouble("PurchasePrice"));
 
                 System.out.print(found.getISBN() + " ");
