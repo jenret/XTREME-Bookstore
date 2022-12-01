@@ -26,7 +26,7 @@ public class ReceiptDAL {
             e.printStackTrace();
         }
     }
-    public ArrayList<ReceiptModel> getAllReceipts(){
+    public static ArrayList<ReceiptModel> getAllReceipts(){
         String sql = "SELECT * FROM receipts_view";
         ArrayList<ReceiptModel> receipts = new ArrayList<>();
         try{
@@ -50,7 +50,7 @@ public class ReceiptDAL {
         return receipts;
     }
     //Get Receipts by month
-    public ArrayList<ReceiptModel> getReceiptsFromCurrentMonth(){
+    public static ArrayList<ReceiptModel> getReceiptsFromCurrentMonth(){
         String sql = "SELECT * FROM `XTreme-Bookstore`.receipts_view\n" +
                 "WHERE monthname(timeOfSale) LIKE monthname(current_timestamp) " +
                 "and year(timeOfSale) = year(current_timestamp())\n" +
@@ -75,7 +75,7 @@ public class ReceiptDAL {
         }catch (SQLException sqle){sqle.printStackTrace();}
         return receipts;
     }
-    public ArrayList<ReceiptModel> getReceiptsFromAMonth(String month){
+    public static ArrayList<ReceiptModel> getReceiptsFromAMonth(String month){
         String sql = "SELECT * FROM `XTreme-Bookstore`.receipts_view\n" +
                 "WHERE monthname(timeOfSale) LIKE ? " +
                 "and year(timeOfSale) = year(current_timestamp())\n" +

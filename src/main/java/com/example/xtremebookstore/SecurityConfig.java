@@ -80,6 +80,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/login").authenticated()
                 .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/receipts/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/receipts").authenticated()
                 .antMatchers(HttpMethod.GET, "book/findAll").permitAll() //ben line, with this, allows the books to display
                 .antMatchers(HttpMethod.POST, "book/create").permitAll()
