@@ -1,9 +1,46 @@
-.login {
-    display: block;
+/*colors*/
+/*black: #272932*/
+/*white: #EBEBEB*/
+/*pinkish red: #F45B69*/
+/*blue: #118AB2*/
+/*yellow: #FBFF12*/
+
+body {
+    background-color: #EBEBEB;
 }
 
-.logout {
-    display: none;
+h1 {
+    color: #272932;
+    font-family: 'Righteous', cursive;
+    font-size: 60px;
+}
+
+h2 {
+    color: #272932;
+    font-family: 'Staatliches', cursive;
+    font-size: 35px;
+    align-content: center;
+    justify-content: center;
+}
+
+label, button {
+    font-family: 'Yantramanav', sans-serif;
+}
+
+input {
+    width: 100px;
+    margin: 3px 0 3px 0;
+    padding: 3px;
+}
+
+.logoutBtn {
+    justify-items: right;
+    right: 10px;
+    position: absolute;
+    padding: 10px;
+    font-size: 15px;
+    background-color: #118AB2;
+    color: #EBEBEB;
 }
 
 .receiptForm {
@@ -15,6 +52,14 @@
 }
 
 .graphArea {
+    display: none;
+}
+
+.login {
+    display: block;
+}
+
+.logout {
     display: none;
 }
 
