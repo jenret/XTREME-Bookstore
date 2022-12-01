@@ -1,10 +1,13 @@
 package com.example.xtremebookstore.data;
 
 import com.example.xtremebookstore.models.ReceiptModel;
+import com.example.xtremebookstore.models.SalesPerBook;
+import com.example.xtremebookstore.models.SalesPerStore;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ReceiptDAL {
 
@@ -26,7 +29,7 @@ public class ReceiptDAL {
             e.printStackTrace();
         }
     }
-    public ArrayList<ReceiptModel> getAllReceipts(){
+    public static ArrayList<ReceiptModel> getAllReceipts(){
         String sql = "SELECT * FROM receipts_view";
         ArrayList<ReceiptModel> receipts = new ArrayList<>();
         try{
@@ -50,7 +53,7 @@ public class ReceiptDAL {
         return receipts;
     }
     //Get Receipts by month
-    public ArrayList<ReceiptModel> getReceiptsFromCurrentMonth(){
+    public static ArrayList<ReceiptModel> getReceiptsFromCurrentMonth(){
         String sql = "SELECT * FROM `XTreme-Bookstore`.receipts_view\n" +
                 "WHERE monthname(timeOfSale) LIKE monthname(current_timestamp) " +
                 "and year(timeOfSale) = year(current_timestamp())\n" +
@@ -75,7 +78,7 @@ public class ReceiptDAL {
         }catch (SQLException sqle){sqle.printStackTrace();}
         return receipts;
     }
-    public ArrayList<ReceiptModel> getReceiptsFromAMonth(String month){
+    public static ArrayList<ReceiptModel> getReceiptsFromAMonth(String month){
         String sql = "SELECT * FROM `XTreme-Bookstore`.receipts_view\n" +
                 "WHERE monthname(timeOfSale) LIKE ? " +
                 "and year(timeOfSale) = year(current_timestamp())\n" +
@@ -102,6 +105,50 @@ public class ReceiptDAL {
             sqle.printStackTrace();
         }
         return receipts;
+    }
+
+    public static ArrayList<SalesPerBook> getBookSalesPerMonth(int month) {
+        String query = "select title, count(salesID) as numberOfSales, sum(salePrice) as salesTotal " +
+                "from receipts_view where month(timeOfSale) = ? and year(timeOfSale) = year(now()) group by title";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, month);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<SalesPerBook> results = new ArrayList<>();
+            while (rs.next()) {
+                results.add(new SalesPerBook(rs.getString("title"),
+                        rs.getDouble("salesTotal"),
+                        rs.getInt("numberOfSales")));
+            }
+            return results;
+        } catch (Exception e) {
+            System.out.println("Error getBookSalesPerMonth");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<SalesPerStore> getStoreSalesPerMonth(int month) {
+        String query = "select storeName, sum(salePrice) as salesTotal, count(salesID) as numberOfSales " +
+                "from receipts_view month(timeOfSale) = ? and year(timeOfSale) = year(now()) group by title";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, month);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<SalesPerStore> results = new ArrayList<>();
+            while (rs.next()) {
+                results.add(new SalesPerStore(rs.getString("storeName"),
+                        rs.getDouble("salesTotal"),
+                        rs.getInt("numberOfSales")));
+            }
+            return results;
+        } catch (Exception e) {
+            System.out.println("Error getStoreSalesPerMonth");
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
