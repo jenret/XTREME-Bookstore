@@ -95,7 +95,7 @@
                 "author": author, //int works fine
                 "publishDate": publish, //SQL date
                 "edition": edition, //int
-                "price": price //double
+                "purchasePrice": price //double
             }
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("POST", "http://localhost:8080/book/create");
@@ -107,9 +107,6 @@
                     console.log("Successfully posted");
                     getAllBooks();
                 }
-                //if(this.readyState==XMLHttpRequest.DONE && this.status ==){
-
-                //}
             }
             xmlHttp.send(JSON.stringify(object));
             var ISBN = document.getElementById("ISBN").value = "";
