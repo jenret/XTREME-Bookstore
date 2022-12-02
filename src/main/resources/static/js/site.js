@@ -173,6 +173,7 @@ function sendBackReceipt() {
     var price = document.getElementById("price").value = "";
 }
 
+
 window.onload = function () {
     var form = document.getElementById("receiptForm");
     form.style.display = "none";
