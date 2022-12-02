@@ -26,16 +26,9 @@ public class BookDAL {
                         rs.getString("Title"),
                         rs.getInt("AuthorID"),
                         rs.getString("authorName"),
-                        //rs.getInt("Edition"),
                         rs.getString("datePublished"),
                         rs.getDouble("purchasePrice"));
                 bookModel.add(books);
-                System.out.print(rs.getString("ISBN") + " ");
-                System.out.print(rs.getString("Title") + " ");
-                System.out.print(rs.getString("AuthorID") + " ");
-                //System.out.print(rs.getString("Edition") + " ");
-                System.out.print(rs.getString("datePublished") + " ");
-                System.out.println(" " + rs.getDouble("purchasePrice") + " ");
 
             }
         } catch (Exception e) {
@@ -56,17 +49,8 @@ public class BookDAL {
                         rs.getString("Title"),
                         rs.getInt("AuthorID"),
                         rs.getString("AuthorName"),
-                        //rs.getInt("Edition"),
                         rs.getString("PublishDate"),
                         rs.getDouble("PurchasePrice"));
-
-                System.out.print(found.getISBN() + " ");
-                System.out.print(found.getTitle() + " ");
-                System.out.print(found.getAuthor() + " ");
-                System.out.print(found.getAuthorName() + " ");
-                System.out.print(found.getPublishDate() + " ");
-                //System.out.print(found.getEdition() + " ");
-                System.out.println(found.getPurchasePrice() + " ");
                 return found;
             }
         } catch (Exception e) {
