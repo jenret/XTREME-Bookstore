@@ -58,14 +58,10 @@ function toggleLogin() {
         //show login
         loginForm.style.display = "block";
         logoutBtn.style.display = "none";
-        receiptForm.style.display = "none";
-        bookArea.style.display = "none";
     } else {
         //hide login
         loginForm.style.display = "none";
         logoutBtn.style.display = "inline-block";
-        receiptForm.style.display = "block";
-        bookArea.style.display = "block";
     }
 }
 
