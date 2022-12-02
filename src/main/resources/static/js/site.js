@@ -51,7 +51,7 @@ function login() {
 function toggleLogin() {
     var loginForm = document.getElementById("login");
     var logoutBtn = document.getElementById("logout");
-    var receiptForm = document.getElementById("receiptForm");
+    var receiptForm = document.getElementById("emp_ReceiptForm");
     var bookArea = document.getElementById("bookArea");
 
     if (loginForm.style.display === "none") {
@@ -126,6 +126,19 @@ function getAllBooks() {
     xmlHttp.send();
 }
 
+function getBookBYTitle(){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+            var objects = JSON.parse(this.responseText);
+            renderBooks(objects);
+        }
+    }
+    xmlHttp.open("GET", "http://localhost:8080/book/find/{title}", true);
+    //xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
+    xmlHttp.send();
+}
+
 //works good
 function renderBooks(books) {
     var bookList = document.getElementById("bookList");
@@ -176,9 +189,10 @@ function sendBackReceipt() {
 
 
 window.onload = function () {
-    var form = document.getElementById("receiptForm");
-    form.style.display = "none";
     getAllBooks();
+    //this makes the sales form for employee invisible when loadin in the page
+    var form = document.getElementById("emp_ReceiptForm");
+    form.style.display = "none";
 }
 
 //chart javascript

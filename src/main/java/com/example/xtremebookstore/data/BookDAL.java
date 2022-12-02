@@ -49,6 +49,7 @@ public class BookDAL {
             e.printStackTrace();
         }
     }
+
     public List<BookModel> findAll() {
         String sql = "Select * from  `XTreme-Bookstore`.book_view";
         List<BookModel> bookModel = new ArrayList<>();
@@ -64,6 +65,8 @@ public class BookDAL {
                         rs.getString("datePublished"),
                         rs.getDouble("purchasePrice"));
                 bookModel.add(books);
+                //System.out.print(books.getISBN());
+                //System.out.println(books.getTitle());
 
             }
         } catch (Exception e) {
@@ -84,7 +87,7 @@ public class BookDAL {
                         rs.getString("Title"),
                         rs.getInt("AuthorID"),
                         rs.getString("AuthorName"),
-                        rs.getString("PublishDate"),
+                        rs.getString("datePublished"),
                         rs.getDouble("PurchasePrice"));
                 return found;
             }
@@ -92,5 +95,28 @@ public class BookDAL {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<BookModel> findByTitle(String title){
+        String sql = "SELECT * FROM `XTreme-Bookstore`.book_view WHERE title like (?)";
+        List<BookModel> bookModel = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, "%" + title + "%");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                BookModel found = new BookModel(rs.getString("ISBN"),
+                        rs.getString("Title"),
+                        rs.getInt("AuthorID"),
+                        rs.getString("AuthorName"),
+                        rs.getString("datePublished"),
+                        rs.getDouble("PurchasePrice"));
+                 bookModel.add(found);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bookModel;
     }
 }

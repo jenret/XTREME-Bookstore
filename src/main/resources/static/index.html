@@ -4,7 +4,8 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Staatliches&family=Yantramanav&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Staatliches&family=Yantramanav&display=swap"
+          rel="stylesheet">
     <meta charset="UTF-8">
     <title>XtremeBookStore</title>
     <script src="js/site.js" defer></script>
@@ -27,29 +28,31 @@
         <br/>
         <p id="errorMsg"></p>
     </div>
-
 </section>
+
 <div id="logout" class="logout">
     <button class="logoutBtn" type="submit" onclick="toggleLogin()">Logout</button>
 </div>
 <br>
 <div id="handleError"></div>
 <br>
-<section id="user">
-    <div id="receiptForm" class="receiptForm">
+
+<section id="emp_User">
+    <div id="emp_ReceiptForm" class="receiptForm">
         <label>ISBN: </label>
-        <input type="text" id="ISBN" required/>
+        <input type="text" id="emp_ISBN" required/>
         <br/>
         <label>Price: </label>
-        <input type="text" id="price" required/>
+        <input type="text" id="emp_Price" required/>
         <br/>
         <button onclick="sendBackReceipt();">Add Sale</button>
     </div>
     <br>
-    <div id="bookArea" class="bookArea">
-        <ul id="bookList"></ul>
-    </div>
+    <!--    <div id="bookArea" class="bookArea">-->
+    <!--        <ul id="bookList"></ul>-->
+    <!--    </div>-->
 </section>
+
 <section id="adm_Section">
     <h1 id="testStuff">This is the admin Section</h1>
     <div id="books"></div>

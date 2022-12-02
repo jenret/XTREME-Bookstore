@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Temp Employee Page</title>
+    <script src="js/site.js"></script>
 </head>
 <body>
 
+<!--this is employee section, employees AND admins can view this -->
+<section id="emp_User">
+    <div id="emp_ReceiptForm" class="receiptForm">
+        <label>ISBN: </label>
+        <input type="text" id="emp_ISBN" required/>
+        <br/>
+        <label>Price: </label>
+        <input type="text" id="emp_Price" required/>
+        <br/>
+        <button onclick="sendBackReceipt();">Add Sale</button>
+    </div>
+    <br>
+    <div id="bookArea" class="bookArea">
+        <ul id="bookList"></ul>
+    </div>
+</section>
 </body>
 </html>
