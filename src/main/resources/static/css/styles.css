@@ -47,8 +47,11 @@ input {
     display: none;
 }
 
-.adm_bookArea {
+.adm_bookArea, .bookArea {
     display: none;
+    height: 300px;
+    width: 300px;
+    overflow: scroll;
 }
 
 .graphArea {
