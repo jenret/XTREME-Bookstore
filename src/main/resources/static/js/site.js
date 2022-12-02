@@ -97,7 +97,7 @@ function addBook() {
     xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
     xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
     xmlHttp.onreadystatechange = function () {
-        console.log("Ready state "+ this.status);
+        console.log("Ready state " + this.status);
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
             console.log("Successfully posted");
             getAllBooks();
@@ -134,7 +134,7 @@ function renderBooks(books) {
         "<th>" + "ISBN" + "</th>" +
         "<th>" + "Title" + "</th>" +
         "<th>" + "Author ID" + "</th>" +
-        "<th>" + "Edition" + "</th>" +
+        "<th>" + "Author Name" + "</th>" +
         "<th>" + "Publish Date" + "</th>" +
         "<th>" + "Purchase Price" + "</th>" +
         "</tr> "
@@ -143,7 +143,7 @@ function renderBooks(books) {
             "<td>" + object.ISBN + "</td>" +
             "<td>" + object.title + "</td>" +
             "<td>" + object.author + "</td>" +
-            "<td>" + object.edition + "</td>" +
+            "<td>" + object.authorName + "</td>" +
             "<td>" + object.publishDate + "</td>" +
             "<td>" + "$" + object.purchasePrice + "</td>"
         bookList.innerHTML = bookHTML;
