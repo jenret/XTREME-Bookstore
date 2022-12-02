@@ -23,6 +23,43 @@
         }
         xmlHttp.send();
     }
+
+    function getStoreSales() {
+        let month = document.getElementById("adm_displayMonth").value;
+        if(month === "") {
+            month = "0";
+        }
+
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "http://localhost:8080/receipts/stores/" + month);
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+        xmlHttp.onreadystatechange = function () {
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+                console.log(data);
+            }
+        }
+        xmlHttp.send();
+    }
+
+    function getAuthorSales() {
+        let month = document.getElementById("adm_displayMonth").value;
+        if(month === "") {
+            month = "0";
+        }
+
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "http://localhost:8080/authors/stores/" + month);
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+        xmlHttp.onreadystatechange = function () {
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+                console.log(data);
+            }
+        }
+        xmlHttp.send();
+    }
+
 </script>
 <body>
 <h2>Admin</h2>
@@ -39,8 +76,8 @@
         <input type="text" id="adm_displayMonth">
         <nav>
             <button onclick="getBookSales()">By Book</button>
-            <button onclick="myFunc();">By Store</button>
-            <button onclick="myFunc();">By Author</button>
+            <button onclick="getStoreSales();">By Store</button>
+            <button onclick="getAuthorSales();">By Author</button>
             <button onclick="myFunc();">By Month</button>
             <button onclick="showAll();">Show all</button>
         </nav>
