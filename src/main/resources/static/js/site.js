@@ -71,9 +71,10 @@ function toggleLogin() {
 
 //storage for username and password
 //session based
-function userStorage(strUsername, strPassword) {
+function userStorage(strUsername, strPassword, strRole) {
     sessionStorage.setItem("username", strUsername);
     sessionStorage.setItem("password", strPassword);
+    sessionStorage.setItem("role",strRole);
 }
 
 //addBook finally works
