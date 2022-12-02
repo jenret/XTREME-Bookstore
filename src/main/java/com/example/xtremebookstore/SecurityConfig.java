@@ -37,12 +37,6 @@ public class SecurityConfig {
 
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        UserDetails superAdmin = User.withUsername("superAdmin")
-                .password(passwordEncoder().encode("superAdmin"))
-                .roles("ADMIN")
-                .build();
-        authMem.createUser(superAdmin);
-
         for(UserModel user : UsersDAL.getAllUsers()) {
             UserDetails newUser = User.withUsername(user.getUsername())
                     .password(passwordEncoder().encode(user.getPassword()))

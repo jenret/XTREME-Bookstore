@@ -1,6 +1,5 @@
 package com.example.xtremebookstore.controller;
 
-import com.example.xtremebookstore.data.BookBLL;
 import com.example.xtremebookstore.data.BookDAL;
 import com.example.xtremebookstore.models.BookModel;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,15 +10,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/book")
 public class BookRestController { //add CRUD operations in here
-
-    private BookBLL bBLL = new BookBLL();
     private BookDAL bDAL = new BookDAL();
 
     @PostMapping("/create")
     @ResponseBody
     @PreAuthorize("hasAnyRole('ADMIN', 'EMP')")
     public void createBook(@RequestBody BookModel object){
-        bBLL.addBook(object);
+        bDAL.addBook(object);
     }
     @GetMapping("/findAll")
     public List<BookModel> findAll(){
@@ -34,6 +31,6 @@ public class BookRestController { //add CRUD operations in here
 
     @DeleteMapping("/{ISBN}")
     public void deleteBook(@PathVariable String ISBN){
-        bBLL.deleteBook(ISBN);
+        bDAL.deleteBook(ISBN);
     }
 }
