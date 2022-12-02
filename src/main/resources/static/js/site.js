@@ -53,7 +53,6 @@ function toggleLogin() {
     var logoutBtn = document.getElementById("logout");
     var receiptForm = document.getElementById("receiptForm");
     var bookArea = document.getElementById("bookArea");
-    var graphArea = document.getElementById("graphArea");
 
     if (loginForm.style.display === "none") {
         //show login
@@ -61,14 +60,12 @@ function toggleLogin() {
         logoutBtn.style.display = "none";
         receiptForm.style.display = "none";
         bookArea.style.display = "none";
-        graphArea.style.display = "none";
     } else {
         //hide login
         loginForm.style.display = "none";
         logoutBtn.style.display = "inline-block";
         receiptForm.style.display = "block";
         bookArea.style.display = "block";
-        graphArea.style.display = "block";
     }
 }
 
@@ -182,3 +179,9 @@ window.onload = function () {
     form.style.display = "none";
     getAllBooks();
 }
+
+//chart javascript
+const ctx1 = document.getElementById('bookChart').getContext('2d');
+const ctx2 = document.getElementById('storeChart').getContext('2d');
+const ctx3 = document.getElementById('authorChart').getContext('2d');
+const ctx4 = document.getElementById('monthChart').getContext('2d');

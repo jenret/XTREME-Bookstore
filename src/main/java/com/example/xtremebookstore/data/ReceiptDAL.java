@@ -1,6 +1,7 @@
 package com.example.xtremebookstore.data;
 
 import com.example.xtremebookstore.models.ReceiptModel;
+import com.example.xtremebookstore.models.SalesPerAuthor;
 import com.example.xtremebookstore.models.SalesPerBook;
 import com.example.xtremebookstore.models.SalesPerStore;
 
@@ -149,6 +150,29 @@ public class ReceiptDAL {
             return results;
         } catch (Exception e) {
             System.out.println("Error getStoreSalesPerMonth");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<SalesPerAuthor> getAuthorSalesPerMonth(int month) {
+        String query = "select a.authorName, sum(rv.salePrice) as salesTotal, count(rv.salesID) as numberOfSales " +
+                "from receipts_view as rv join book_view as a on rv.bookISBN = a.ISBN " +
+                "where month(rv.timeOfSale) = ? and year(rv.timeOfSale) = year(now()) group by authorName";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, month);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<SalesPerAuthor> results = new ArrayList<>();
+            while (rs.next()) {
+                results.add(new SalesPerAuthor(rs.getString("authorName"),
+                        rs.getDouble("salesTotal"),
+                        rs.getInt("numberOfSales")));
+            }
+            return results;
+        } catch (Exception e) {
+            System.out.println("Error getAuthorSalesPerMonth");
             e.printStackTrace();
             return null;
         }

@@ -1,5 +1,7 @@
 package com.example.xtremebookstore.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -7,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 public class LoginRestController {
 
     @GetMapping("")
-    public void loggedIn() {
-
+    public String loggedIn(@AuthenticationPrincipal User user) {
+        return user.getAuthorities().toString();
     }
 
 }

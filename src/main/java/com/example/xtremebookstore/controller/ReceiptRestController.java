@@ -2,10 +2,7 @@ package com.example.xtremebookstore.controller;
 
 import com.example.xtremebookstore.data.ReceiptDAL;
 import com.example.xtremebookstore.data.UsersDAL;
-import com.example.xtremebookstore.models.ReceiptModel;
-import com.example.xtremebookstore.models.SalesPerBook;
-import com.example.xtremebookstore.models.SalesPerStore;
-import com.example.xtremebookstore.models.UserModel;
+import com.example.xtremebookstore.models.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
@@ -103,4 +100,20 @@ public class ReceiptRestController {
             return null;
         }
     }
+
+    @GetMapping("/authors/{month}")
+    public ArrayList<SalesPerAuthor> getSalesPerAuthor(@PathVariable int month) {
+        try {
+            if(month == 0) {
+                return ReceiptDAL.getAuthorSalesPerMonth(LocalDateTime.now().getMonthValue());
+            } else {
+                return ReceiptDAL.getAuthorSalesPerMonth(month);
+            }
+        } catch (Exception e) {
+            System.out.println("Error getSalesPerAuthor");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

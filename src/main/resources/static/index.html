@@ -37,36 +37,13 @@
 <br>
 <section id="user">
     <div id="receiptForm" class="receiptForm">
-        <!-- Only require ISBN and price for the Add Sale-->
         <label>ISBN: </label>
         <input type="text" id="ISBN" required/>
-        <br/>
-        <label>Title: </label>
-        <input type="text" id="title"/>
-        <br/>
-        <label>Author ID: </label>
-        <input type="text" id="author"/>
-        <br/>
-        <label>Publish Date: </label>
-        <input type="text" id="publishDate" placeholder="YYYY-MM-DD"/>
-        <br/>
-        <label>Edition: </label>
-        <input type="text" id="edition"/>
         <br/>
         <label>Price: </label>
         <input type="text" id="price" required/>
         <br/>
-        <label>Store ID: </label>
-        <input type="number">
-        <br/>
         <button onclick="sendBackReceipt();">Add Sale</button>
-        <button onclick="addBook();">Add Book</button>
-    </div>
-    <br>
-    <div id="graphArea" class="graphArea">
-        <div id="monthlyConsumable"></div>
-        <div id="monthlyCustomer"></div>
-        <div id="monthlySales"></div>
     </div>
     <br>
     <div id="bookArea" class="bookArea">
