@@ -9,11 +9,8 @@
     <title>XtremeBookStore</title>
     <script type="text/javascript">
         //this page would only show books available
-        //ISBN will ID
         //keep track of what store the book is available
-        //so when an employee logs in, make visible the receipt form
         //if admin, show how well the stores are doing, show sales etc.
-        //render the login first, and then ^
 
         var authHeaderValue = null;
         var username = null;
@@ -147,7 +144,7 @@
                 "<th>" + "ISBN" + "</th>" +
                 "<th>" + "Title" + "</th>" +
                 "<th>" + "Author ID" + "</th>" +
-                "<th>" + "Edition" + "</th>" +
+                "<th>" + "Author Name" + "</th>" +
                 "<th>" + "Publish Date" + "</th>" +
                 "<th>" + "Purchase Price" + "</th>" +
                 "</tr> "
@@ -156,7 +153,7 @@
                     "<td>" + object.ISBN + "</td>" +
                     "<td>" + object.title + "</td>" +
                     "<td>" + object.author + "</td>" +
-                    "<td>" + object.edition + "</td>" +
+                    "<td>" + object.authorName + "</td>" +
                     "<td>" + object.publishDate + "</td>" +
                     "<td>" + "$" + object.purchasePrice + "</td>"
                 bookList.innerHTML = bookHTML;

@@ -15,7 +15,7 @@ public class BookDAL {
     String password = "PRO150db";
 
     public List<BookModel> findAll() {
-        String sql = "Select * from  `XTreme-Bookstore`.books";
+        String sql = "Select * from  `XTreme-Bookstore`.book_view";
         List<BookModel> bookModel = new ArrayList<>();
         try {
             Connection con = DriverManager.getConnection(url, user, password);
@@ -24,16 +24,17 @@ public class BookDAL {
             while (rs.next()) {
                 BookModel books = new BookModel(rs.getString("ISBN"),
                         rs.getString("Title"),
-                        rs.getInt("Author"),
-                        rs.getInt("Edition"),
-                        rs.getString("publishDate"),
+                        rs.getInt("AuthorID"),
+                        rs.getString("authorName"),
+                        //rs.getInt("Edition"),
+                        rs.getString("datePublished"),
                         rs.getDouble("purchasePrice"));
                 bookModel.add(books);
                 System.out.print(rs.getString("ISBN") + " ");
                 System.out.print(rs.getString("Title") + " ");
-                System.out.print(rs.getString("Author") + " ");
-                System.out.print(rs.getString("Edition") + " ");
-                System.out.print(rs.getString("publishDate") + " ");
+                System.out.print(rs.getString("AuthorID") + " ");
+                //System.out.print(rs.getString("Edition") + " ");
+                System.out.print(rs.getString("datePublished") + " ");
                 System.out.println(" " + rs.getDouble("purchasePrice") + " ");
 
             }
@@ -44,7 +45,7 @@ public class BookDAL {
     }
 
     public BookModel findById(String ISBN) {
-        String sql = "Select * from `XTreme-Bookstore`.books where ISBN = (?)";
+        String sql = "Select * from `XTreme-Bookstore`.book_view where ISBN = (?)";
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
@@ -53,16 +54,18 @@ public class BookDAL {
             while (rs.next()) {
                 BookModel found = new BookModel(rs.getString("ISBN"),
                         rs.getString("Title"),
-                        rs.getInt("Author"),
-                        rs.getInt("Edition"),
+                        rs.getInt("AuthorID"),
+                        rs.getString("AuthorName"),
+                        //rs.getInt("Edition"),
                         rs.getString("PublishDate"),
                         rs.getDouble("PurchasePrice"));
 
                 System.out.print(found.getISBN() + " ");
                 System.out.print(found.getTitle() + " ");
                 System.out.print(found.getAuthor() + " ");
+                System.out.print(found.getAuthorName() + " ");
                 System.out.print(found.getPublishDate() + " ");
-                System.out.print(found.getEdition() + " ");
+                //System.out.print(found.getEdition() + " ");
                 System.out.println(found.getPurchasePrice() + " ");
                 return found;
             }

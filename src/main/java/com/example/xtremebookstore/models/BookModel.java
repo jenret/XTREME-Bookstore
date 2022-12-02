@@ -7,6 +7,8 @@ public class BookModel {
     public String ISBN;
     private String title;
     private int author;
+
+    private String authorName;
     private int edition;
     private String publishDate;
     private double purchasePrice;
@@ -59,15 +61,32 @@ public class BookModel {
         this.purchasePrice = purchasePrice;
     }
 
-    public BookModel(String ISBN, String title, int author, int edition, String publishDate , double purchasePrice) {
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public BookModel(String ISBN, String title, int author, String authorName, int edition, String publishDate , double purchasePrice) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
+        this.authorName = authorName;
         this.edition = edition;
         this.publishDate = publishDate;
         this.purchasePrice = purchasePrice;
     }
 
+    public BookModel(String ISBN, String title, int author, String authorName, String publishDate , double purchasePrice) {
+        this.ISBN = ISBN;
+        this.title = title;
+        this.author = author;
+        this.authorName = authorName;
+        this.publishDate = publishDate;
+        this.purchasePrice = purchasePrice;
+    }
     public BookModel() {
     }
 }
