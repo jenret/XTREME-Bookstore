@@ -106,6 +106,9 @@ public class ReceiptDAL {
         }
         return receipts;
     }
+    public void getTotalSalesByBook(){
+
+    }
 
     public static ArrayList<SalesPerBook> getBookSalesPerMonth(int month) {
         String query = "select title, count(salesID) as numberOfSales, sum(salePrice) as salesTotal " +
