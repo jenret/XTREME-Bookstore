@@ -9,6 +9,7 @@
 <nav>
     <button>Books</button>
     <button>Reports</button>
+    <button>User Managing</button>
 </nav>
 <section id="adminChartView">
     <div>
@@ -37,6 +38,40 @@
         </div>
     </section>
 </section>
-
+<section id="adminUserManaging">
+</section>
+<section id="adminBook">
+    <section id="bookFormView">
+        <div id="bookForm" class="bookForm">
+            <label>ISBN: </label>
+            <input type="text" id="ISBN" required/>
+            <br/>
+            <label>Title: </label>
+            <input type="text" id="title"/>
+            <br/>
+            <label>Author ID: </label>
+            <input type="text" id="author"/>
+            <br/>
+            <label>Publish Date: </label>
+            <input type="text" id="publishDate" placeholder="YYYY-MM-DD"/>
+            <br/>
+            <label>Edition: </label>
+            <input type="text" id="edition"/>
+            <br/>
+            <label>Price: </label>
+            <input type="text" id="price" required/>
+            <br/>
+            <label>Store ID: </label>
+            <input type="number">
+            <br/>
+            <button onclick="addBook();">Add Book</button>
+        </div>
+    </section>
+    <section id="bookView">
+        <div id="bookArea" class="bookArea">
+            <ul id="bookList"></ul>
+        </div>
+    </section>
+</section>
 </body>
 </html>
