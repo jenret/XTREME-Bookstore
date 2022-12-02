@@ -197,60 +197,67 @@
 </nav>
 <body>
 <h1>Xtreme Bookstore</h1>
+<section id="logInInfo">
+    <div id="login" class="login">
+        <h2>Login</h2>
+        <label>Username</label>
+        <input type="text" id="txtUsername">
+        <br/>
+        <label>Password</label>
+        <input type="password" id="txtPassword">
+        <br/>
+        <button onclick="login();">Login</button>
+        <br/>
+        <p id="errorMsg"></p>
+    </div>
+    <div id="logout" class="logout">
+        <button class="logoutBtn" type="submit" onclick="toggleLogin()">Logout</button>
+    </div>
+</section>
 
-<div id="login" class="login">
-    <h2>Login</h2>
-    <label>Username</label>
-    <input type="text" id="txtUsername">
-    <br/>
-    <label>Password</label>
-    <input type="password" id="txtPassword">
-    <br/>
-    <button onclick="login();">Login</button>
-    <br/>
-    <p id="errorMsg"></p>
-</div>
-<div id="logout" class="logout">
-    <button class="logoutBtn" type="submit" onclick="toggleLogin()">Logout</button>
-</div>
 <br>
 <div id="handleError"></div>
 <br>
-<div id="receiptForm" class="receiptForm">
-<!-- Only require ISBN and price for the Add Sale-->
-    <label>ISBN: </label>
-    <input type="text" id="ISBN" required/>
-    <br/>
-    <label>Title: </label>
-    <input type="text" id="title"/>
-    <br/>
-    <label>Author ID: </label>
-    <input type="text" id="author"/>
-    <br/>
-    <label>Publish Date: </label>
-    <input type="text" id="publishDate" placeholder="YYYY-MM-DD"/>
-    <br/>
-    <label>Edition: </label>
-    <input type="text" id="edition"/>
-    <br/>
-    <label>Price: </label>
-    <input type="text" id="price" required/>
-    <br/>
-    <label>Store ID: </label>
-    <input type="number">
-    <br/>
-    <button onclick="sendBackReceipt();">Add Sale</button>
-    <button onclick="addBook();">Add Book</button>
-</div>
-<br>
-<div id="graphArea" class="graphArea">
-    <div id="monthlyConsumable"></div>
-    <div id="monthlyCustomer"></div>
-    <div id="monthlySales"></div>
-</div>
-<br>
-<div id="bookArea" class="bookArea">
-    <ul id="bookList"></ul>
-</div>
+<section id="user">
+    <div id="receiptForm" class="receiptForm">
+        <!-- Only require ISBN and price for the Add Sale-->
+        <label>ISBN: </label>
+        <input type="text" id="ISBN" required/>
+        <br/>
+        <label>Title: </label>
+        <input type="text" id="title"/>
+        <br/>
+        <label>Author ID: </label>
+        <input type="text" id="author"/>
+        <br/>
+        <label>Publish Date: </label>
+        <input type="text" id="publishDate" placeholder="YYYY-MM-DD"/>
+        <br/>
+        <label>Edition: </label>
+        <input type="text" id="edition"/>
+        <br/>
+        <label>Price: </label>
+        <input type="text" id="price" required/>
+        <br/>
+        <label>Store ID: </label>
+        <input type="number">
+        <br/>
+        <button onclick="sendBackReceipt();">Add Sale</button>
+        <button onclick="addBook();">Add Book</button>
+    </div>
+    <br>
+    <div id="graphArea" class="graphArea">
+        <div id="monthlyConsumable"></div>
+        <div id="monthlyCustomer"></div>
+        <div id="monthlySales"></div>
+    </div>
+    <br>
+    <div id="bookArea" class="bookArea">
+        <ul id="bookList"></ul>
+    </div>
+</section>
+<section id="adminSection">
+    <h1 id="testStuff">This is the admin Section</h1>
+</section>
 </body>
 </html>
