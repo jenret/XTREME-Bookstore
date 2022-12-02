@@ -9,6 +9,8 @@ var authHeaderValue = null;
 var username = null;
 var password = null;
 
+let empSect = document.getElementById("employee");
+let admSect = document.getElementById("adminSection");
 //this is the function for the login
 function login() {
     username = document.getElementById('txtUsername').value;
@@ -27,7 +29,9 @@ function login() {
             form.style.display = "block";
             //show logout and welcome message
             //save info for the session
-            userStorage(username, password);
+            let role = this.responseText
+            userStorage(username, password,role);
+            togglePage(role);
         } else if (this.readyState == XMLHttpRequest.DONE && this.status == 401) {
             document.getElementById("errorMsg").innerHTML = "Invalid Username or Password";
             //keep showing login
@@ -67,6 +71,7 @@ function toggleLogin() {
         receiptForm.style.display = "block";
         bookArea.style.display = "block";
     }
+    togglePage(localStorage.getItem("role"))
 }
 
 //storage for username and password
@@ -173,11 +178,25 @@ function sendBackReceipt() {
     var ISBN = document.getElementById("ISBN").value = "";
     var price = document.getElementById("price").value = "";
 }
+function togglePage(role){
+    if(role =="[ROLE_ADMIN]"){
+        empSect.style.display = 'none';
+        admSect.style.display = 'block';
+    }else if(role =="[ROLE_EMP]"){
+        empSect.style.display = 'block';
+        admSect.style.display = 'none'
+    }else{
+        empSect.style.display = 'none';
+        admSect.style.display = 'none';
+    }
+}
 
 
 window.onload = function () {
     var form = document.getElementById("receiptForm");
     form.style.display = "none";
+    admSect.style.display = "none";
+    empSect.style.display = "none";
     getAllBooks();
 }
 
