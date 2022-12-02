@@ -127,15 +127,19 @@ function getAllBooks() {
 }
 
 function getBookBYTitle(){
+    var findTitle = document.getElementById("emp_Search").value;
+    console.log(findTitle);
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
             var objects = JSON.parse(this.responseText);
+            console.log(objects);
             renderBooks(objects);
         }
     }
-    xmlHttp.open("GET", "http://localhost:8080/book/find/{title}", true);
-    //xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
+    xmlHttp.open("GET", "http://localhost:8080/book/find/" + findTitle, true);
+    xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
     xmlHttp.send();
 }
 
