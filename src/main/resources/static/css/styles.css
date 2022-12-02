@@ -43,12 +43,15 @@ input {
     color: #EBEBEB;
 }
 
-.bookForm {
+.adm_bookForm {
     display: none;
 }
 
-.bookArea {
+.adm_bookArea, .bookArea {
     display: none;
+    height: 300px;
+    width: 300px;
+    overflow: scroll;
 }
 
 .graphArea {
