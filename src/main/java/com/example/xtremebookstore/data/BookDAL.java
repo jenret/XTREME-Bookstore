@@ -14,6 +14,41 @@ public class BookDAL {
     String user = "admin";
     String password = "PRO150db";
 
+    public void addBook(BookModel object) {
+        System.out.println("SALLS");
+        List<BookModel> bookModel = findAll();
+        bookModel.add(object);
+        System.out.println("BALLS");
+        String sql = "Insert into `XTreme-Bookstore`.books (ISBN, Title, Author, Edition, publishDate, purchasePrice) Values (?,?,?,?,?,?)";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, object.getISBN());
+            pst.setString(2, object.getTitle());
+            pst.setInt(3, object.getAuthor());
+            pst.setInt(4, object.getEdition());
+            pst.setString(5, object.getPublishDate());
+            pst.setDouble(6, object.getPurchasePrice());
+            System.out.println("HALLS");
+            pst.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("THRALLS");
+            e.printStackTrace();
+        }
+    }
+
+    //delete works
+    public void deleteBook(String ISBN) {
+        String sql = "Delete from `XTreme-Bookstore`.books where ISBN = (?)";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, ISBN);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public List<BookModel> findAll() {
         String sql = "Select * from  `XTreme-Bookstore`.book_view";
         List<BookModel> bookModel = new ArrayList<>();

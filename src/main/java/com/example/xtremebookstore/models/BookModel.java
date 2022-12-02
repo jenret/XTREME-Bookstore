@@ -7,7 +7,6 @@ public class BookModel {
     public String ISBN;
     private String title;
     private int author;
-
     private String authorName;
     private int edition;
     private String publishDate;
