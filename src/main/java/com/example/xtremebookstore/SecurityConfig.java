@@ -37,6 +37,7 @@ public class SecurityConfig {
 
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+
         for(UserModel user : UsersDAL.getAllUsers()) {
             UserDetails newUser = User.withUsername(user.getUsername())
                     .password(passwordEncoder().encode(user.getPassword()))
