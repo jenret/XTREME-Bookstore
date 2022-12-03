@@ -1,10 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Staatliches&family=Yantramanav&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Temp Employee Page</title>
+    <script src="js/site.js"></script>
 </head>
 <body>
 
+<!--this is employee section, employees AND admins can view this -->
+<section id="employee">
+    <div id="emp_ReceiptForm" class="emp_ReceiptForm">
+        <input type="text " id="emp_Search" placeholder="Search..."/>
+        <button onclick="getBookBYTitle()">Search</button>
+        <br/>
+        <label>ISBN: </label>
+        <input type="text" id="emp_ISBN" required/>
+        <br/>
+        <label>Price: </label>
+        <input type="text" id="emp_Price" required/>
+        <br/>
+        <button onclick="sendBackReceipt();">Add Sale</button>
+    </div>
+    <br>
+    <div id="bookArea" class="bookArea">
+        <ul id="bookList"></ul>
+    </div>
+</section>
 </body>
 </html>

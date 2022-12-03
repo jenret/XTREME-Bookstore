@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Temp</title>
+
+</head>
+<body>
+<div id="adm_newUser">
+  <label for="adm_newUsername">Username: </label>
+  <input id="adm_newUsername" type="text">
+  <br>
+  <label for="adm_password">Password: </label>
+  <input id="adm_password" type="password">
+  <br>
+  <label for="adm_store">Store Name: </label>
+  <input id="adm_store" type="text">
+  <br>
+  <label for="adm_isAdmin">Is this person an admin? </label>
+  <input id="adm_isAdmin" type="checkbox">
+  <button id="adm_createUser" onclick="adm_createUser();">Create User</button>
+</div>
+</body>
+<script>
+  function adm_createUser(){
+    let adm_newUser = document.getElementById("adm_newUsername").value;
+    let adm_newPass = document.getElementById("adm_password").value;
+    let adm_storeName = document.getElementById("adm_store").value;
+    let adm_isAdmin = document.getElementById("adm_isAdmin").value;
+    let role;
+    if(adm_isAdmin){
+      role = "ADMIN"
+    }else{
+      role="EMP"
+    }
+    let newUser = {
+      "username":adm_newUser,
+      "password":adm_newPass,
+      "role":role,
+      "fkStoreName":adm_storeName
+    }
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST","http://localhost:8080/users")
+    xmlHttp.setRequestHeader("Content-Type","application/json")
+    xmlHttp.setRequestHeader("Authorization",authHeaderValue)
+    xmlHttp.onreadystatechange = function (){
+      if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+        console.log("Successfully posted");
+      }
+    }
+    xmlHttp.send(JSON.stringify(newUser));
+  }
+</script>
+</html>

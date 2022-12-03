@@ -5,6 +5,7 @@ import com.example.xtremebookstore.models.BookModel;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @RestController
@@ -19,6 +20,7 @@ public class BookRestController { //add CRUD operations in here
         bDAL.addBook(object);
     }
     @GetMapping("/findAll")
+    //@PreAuthorize("hasAnyRole('ADMIN','EMP')")
     public List<BookModel> findAll(){
         System.out.println("***FROM REST FIND ALL***");
         return bDAL.findAll();
@@ -28,9 +30,13 @@ public class BookRestController { //add CRUD operations in here
         bDAL.findById(ISBN);
     }
 
-
     @DeleteMapping("/{ISBN}")
     public void deleteBook(@PathVariable String ISBN){
         bDAL.deleteBook(ISBN);
+    }
+
+    @GetMapping("/find/{title}")
+    public List<BookModel> findByTitle(@PathVariable String title){
+        return bDAL.findByTitle(title);
     }
 }

@@ -11,7 +11,7 @@ public class UsersDAL {
     private static String password = "PRO150db";
     //USERS Table
     public static void createUser(UserModel userM){
-        String sql = "INSERT INTO users (username, password, role, storeID) values ((?),(?),(?),(?))";
+        String sql = "INSERT INTO users (username, password, role, storeID) values ((?),(?),(?),(select stores.storeID from stores where name like (?)))";
         try{
             Connection con = DriverManager.getConnection(url,user,password);
             PreparedStatement pst = con.prepareStatement(sql);
@@ -19,7 +19,7 @@ public class UsersDAL {
             pst.setString(1,userM.getUsername());
             pst.setString(2,userM.getPassword());
             pst.setString(3,userM.getRole());
-            pst.setInt(4,userM.getStoreID());
+            pst.setString(4,userM.getFkStoreName());
             pst.execute();
         }catch (SQLException e){
             e.printStackTrace();

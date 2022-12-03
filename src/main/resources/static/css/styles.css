@@ -46,11 +46,12 @@ input {
 .adm_bookForm {
     display: none;
 }
-
+/*try to align the table within the scroll table*/
 .adm_bookArea, .bookArea {
+    align-content: center;
     display: none;
     height: 300px;
-    width: 300px;
+    width: 95%;
     overflow: scroll;
 }
 

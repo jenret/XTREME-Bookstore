@@ -27,7 +27,10 @@ public class UserRestController {
     public boolean createUser(@RequestBody UserModel userModel) {
         try {
             UsersDAL.createUser(userModel);
-            inMemoryUserDetailsManager.createUser(User.withUsername(userModel.getUsername()).password(passwordEncoder.encode(userModel.getPassword())).roles(userModel.getRole()).build());
+            inMemoryUserDetailsManager.createUser(
+                    User.withUsername(userModel.getUsername())
+                            .password(passwordEncoder.encode(userModel.getPassword()))
+                            .roles(userModel.getRole()).build());
             return true;
         } catch (Exception e) {
             System.out.println("ERROR createUser");

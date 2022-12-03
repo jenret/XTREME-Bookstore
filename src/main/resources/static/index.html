@@ -27,21 +27,26 @@
         <br/>
         <p id="errorMsg"></p>
     </div>
-
 </section>
+
 <div id="logout" class="logout">
     <button class="logoutBtn" type="submit" onclick="toggleLogin()">Logout</button>
 </div>
 <br>
 <div id="handleError"></div>
 <br>
+
+<!--this is employee section, employees AND admins can view this -->
 <section id="employee">
-    <div id="receiptForm" class="receiptForm">
+    <div id="emp_ReceiptForm" class="emp_ReceiptForm">
+        <input type="text " id="emp_Search" placeholder="Search..."/>
+        <button onclick="getBookBYTitle()">Search</button>
+        <br/>
         <label>ISBN: </label>
-        <input type="text" id="ISBN" required/>
+        <input type="text" id="emp_ISBN" required/>
         <br/>
         <label>Price: </label>
-        <input type="text" id="price" required/>
+        <input type="text" id="emp_Price" required/>
         <br/>
         <button onclick="sendBackReceipt();">Add Sale</button>
     </div>
@@ -50,6 +55,7 @@
         <ul id="bookList"></ul>
     </div>
 </section>
+
 <section id="adm_Section">
     <h1 id="testStuff">This is the admin Section</h1>
     <div id="books"></div>
