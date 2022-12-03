@@ -10,13 +10,14 @@ var username = null;
 var password = null;
 
 let empSect = document.getElementById("employee");
-let admSect = document.getElementById("adminSection");
+let bookResults = document.getElementById("bookArea");
+let admSect = document.getElementById("adm_Section");
 //this is the function for the login
 function login() {
     username = document.getElementById('txtUsername').value;
     password = document.getElementById('txtPassword').value;
     authHeaderValue = "Basic " + btoa(username + ":" + password);
-    var form = document.getElementById("receiptForm");
+    var form = document.getElementById("emp_ReceiptForm");
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", "/login");
@@ -129,6 +130,7 @@ function getAllBooks() {
 
 function getBookBYTitle(){
     var findTitle = document.getElementById("emp_Search").value;
+    bookResults.style.display = 'block';
     console.log(findTitle);
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
@@ -170,8 +172,8 @@ function renderBooks(books) {
 }
 
 function sendBackReceipt() {
-    var ISBN = document.getElementById("ISBN").value;
-    var price = document.getElementById("price").value;
+    var ISBN = document.getElementById("emp_ISBN").value;
+    var price = document.getElementById("emp_Price").value;
     var object = {
         "bookISBN": ISBN,
         "salePrice": price
@@ -188,33 +190,36 @@ function sendBackReceipt() {
         }
     }
     xmlHttp.send(JSON.stringify(object));
-    var ISBN = document.getElementById("ISBN").value = "";
-    var price = document.getElementById("price").value = "";
+    var ISBN = document.getElementById("emp_ISBN").value = "";
+    var price = document.getElementById("emp_Price").value = "";
 }
 function togglePage(role){
     if(role =="[ROLE_ADMIN]"){
         empSect.style.display = 'none';
+        bookResults.style.display = 'none'; //to make this area appear when searching
         admSect.style.display = 'block';
     }else if(role =="[ROLE_EMP]"){
         empSect.style.display = 'block';
+        bookResults.style.display = 'none';
         admSect.style.display = 'none'
     }else{
         empSect.style.display = 'none';
+        bookResults.style.display = 'none';
         admSect.style.display = 'none';
     }
 }
 
-
 window.onload = function () {
     getAllBooks();
-    var form = document.getElementById("receiptForm");
+    var form = document.getElementById("emp_ReceiptForm");
     form.style.display = "none";
     admSect.style.display = "none";
     empSect.style.display = "none";
 }
 
+//ben have error with this :( only commented out for sake of clairty
 //chart javascript
-const ctx1 = document.getElementById('bookChart').getContext('2d');
-const ctx2 = document.getElementById('storeChart').getContext('2d');
-const ctx3 = document.getElementById('authorChart').getContext('2d');
-const ctx4 = document.getElementById('monthChart').getContext('2d');
+// const ctx1 = document.getElementById('bookChart').getContext('2d');
+// const ctx2 = document.getElementById('storeChart').getContext('2d');
+// const ctx3 = document.getElementById('authorChart').getContext('2d');
+// const ctx4 = document.getElementById('monthChart').getContext('2d');
