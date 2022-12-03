@@ -208,6 +208,7 @@ function togglePage(role){
         admSect.style.display = 'none';
     }
 }
+//Create new users in admin page
 
 window.onload = function () {
     getAllBooks();
