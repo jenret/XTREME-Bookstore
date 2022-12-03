@@ -5,6 +5,12 @@
     <title>temp admin</title>
 </head>
 <script type="text/javascript">
+    //chart javascript
+    const ctx1 = document.getElementById('adm_bookChart').getContext('2d');
+    const ctx2 = document.getElementById('adm_storeChart').getContext('2d');
+    const ctx3 = document.getElementById('adm_authorChart').getContext('2d');
+    const ctx4 = document.getElementById('adm_monthChart').getContext('2d');
+
     let authHeaderValue = "Basic " + btoa("superAdmin" + ":" + "superAdmin");
     function getBookSales() {
         let month = document.getElementById("adm_displayMonth").value;
@@ -19,6 +25,11 @@
             if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 let data = JSON.parse(this.responseText);
                 console.log(data);
+                bookDataResults = {
+                    labels: ["Title", "Total", "Number of sales"],
+                    data: [data.title, data.total, data.numberOfSales]
+                }
+                SetupChart(ctx1, bookDataResults.labels, bookDataResults.data);
             }
         }
         xmlHttp.send();
@@ -58,6 +69,40 @@
             }
         }
         xmlHttp.send();
+    }
+
+    function SetupChart(ctx, labels, data) {
+        const myChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of sales',
+                    data: data,
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                    ]
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom'
+                    }
+                },
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: "black"
+                        }
+                    }
+                },
+            },
+            hoverOffset: 4
+        });
     }
 
 </script>

@@ -195,9 +195,3 @@ window.onload = function () {
     empSect.style.display = "none";
     getAllBooks();
 }
-
-//chart javascript
-const ctx1 = document.getElementById('bookChart').getContext('2d');
-const ctx2 = document.getElementById('storeChart').getContext('2d');
-const ctx3 = document.getElementById('authorChart').getContext('2d');
-const ctx4 = document.getElementById('monthChart').getContext('2d');
