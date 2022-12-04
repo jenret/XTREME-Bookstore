@@ -146,6 +146,15 @@ function getBookBYTitle(){
     xmlHttp.send();
 }
 
+//as of now only grabs the first result
+function grabValue(){
+    var grabISBN = document.getElementById("grabISBN").innerHTML;
+    var grabPrice = document.getElementById("grabPrice").innerHTML;
+    var salesISBN = document.getElementById("emp_ISBN").value = grabISBN;
+    var salesPrice = document.getElementById("emp_Price").value = grabPrice;
+    console.log(grabISBN);
+}
+
 //works good
 function renderBooks(books) {
     var bookList = document.getElementById("bookList");
@@ -161,12 +170,12 @@ function renderBooks(books) {
         "</tr> "
     for (var object of books) {
         bookHTML += "<tr>" +
-            "<td>" + object.ISBN + "</td>" +
+            "<td onclick=' grabValue();' id='grabISBN'>" + object.ISBN + "</td>" +
             "<td>" + object.title + "</td>" +
             "<td>" + object.author + "</td>" +
             "<td>" + object.authorName + "</td>" +
             "<td>" + object.publishDate + "</td>" +
-            "<td>" + "$" + object.purchasePrice + "</td>"
+            "<td onclick='grabValue();' id='grabPrice'>" + "$" + object.purchasePrice + "</td>"
         bookList.innerHTML = bookHTML;
     }
 }
