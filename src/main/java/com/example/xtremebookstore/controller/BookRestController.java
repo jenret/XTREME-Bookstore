@@ -39,4 +39,9 @@ public class BookRestController { //add CRUD operations in here
     public List<BookModel> findByTitle(@PathVariable String title){
         return bDAL.findByTitle(title);
     }
+
+    @GetMapping("/findAuthor/{author}")
+    public List<BookModel> findByAuthor(@PathVariable String author){
+        return bDAL.findByAuthor(author);
+    }
 }
