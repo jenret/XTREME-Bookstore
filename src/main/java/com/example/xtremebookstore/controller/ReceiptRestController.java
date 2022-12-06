@@ -33,6 +33,23 @@ public class ReceiptRestController {
         }
     }
 
+    @PostMapping("/batch")
+    public boolean createReceiptsBatch(@RequestBody ArrayList<ReceiptModel> receiptModels, @AuthenticationPrincipal User user) {
+        try {
+            UserModel userModel = UsersDAL.getUserByUsername(user.getUsername());
+            for(ReceiptModel receiptModel : receiptModels) {
+                receiptModel.setUserID(userModel.getId());
+                receiptModel.setStoreID(userModel.getStoreID());
+            }
+            ReceiptDAL.createReceipts(receiptModels);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error createReceipt");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     @GetMapping("")
     public List<ReceiptModel> findAllReceipt() {
         try {
@@ -111,6 +128,17 @@ public class ReceiptRestController {
             }
         } catch (Exception e) {
             System.out.println("Error getSalesPerAuthor");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @GetMapping("/stores/each")
+    public ArrayList<SalesPerStorePerMonth> getSalesEachMonth() {
+        try {
+            return ReceiptDAL.getStoreSalesEachMonth();
+        } catch (Exception e) {
+            System.out.println("Error getSalesEachMonth REST");
             e.printStackTrace();
             return null;
         }

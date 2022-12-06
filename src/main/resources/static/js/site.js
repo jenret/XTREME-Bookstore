@@ -166,12 +166,9 @@ function getBookByAuthor(){
 }
 
 //as of now only grabs the first result
-function grabValue(){
-    var grabISBN = document.getElementById("grabISBN").innerHTML;
-    var grabPrice = document.getElementById("grabPrice").innerHTML;
-    var salesISBN = document.getElementById("emp_ISBN").value = grabISBN;
-    var salesPrice = document.getElementById("emp_Price").value = grabPrice;
-    console.log(grabISBN);
+function grabValue(isbn, value){
+    document.getElementById("emp_ISBN").value = isbn;
+    document.getElementById("emp_Price").value = value;
 }
 
 //works good
@@ -187,14 +184,15 @@ function renderBooks(books) {
         "<th>" + "Publish Date" + "</th>" +
         "<th>" + "Purchase Price" + "</th>" +
         "</tr> "
+
     for (var object of books) {
-        bookHTML += "<tr>" +
-            "<td onclick=' grabValue();' id='grabISBN'>" + object.ISBN + "</td>" +
+        bookHTML += "<tr onclick='grabValue(" + object.ISBN + ", " + object.purchasePrice + ")'>" +
+            "<td id='grabISBN'>" + object.ISBN + "</td>" +
             "<td>" + object.title + "</td>" +
             "<td>" + object.author + "</td>" +
             "<td>" + object.authorName + "</td>" +
             "<td>" + object.publishDate + "</td>" +
-            "<td onclick='grabValue();' id='grabPrice'>" + "$" + object.purchasePrice + "</td>"
+            "<td id='grabPrice'>" + "$" + object.purchasePrice + "</td>"
         bookList.innerHTML = bookHTML;
     }
 }
