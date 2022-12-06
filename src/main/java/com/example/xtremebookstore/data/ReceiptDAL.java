@@ -196,7 +196,9 @@ public class ReceiptDAL {
     }
 
     public static ArrayList<SalesPerStorePerMonth> getStoreSalesEachMonth() {
-        String query = "";
+        String query = "select storeName, month(timeOfSale) as month, sum(salePrice) as salesTotal from receipts_view " +
+                "where year(timeOfSale) = year(now()) " +
+                "group by storeName, month(timeOfSale) order by storeName, month";
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(query);

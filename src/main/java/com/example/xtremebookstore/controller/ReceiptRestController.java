@@ -133,4 +133,15 @@ public class ReceiptRestController {
         }
     }
 
+    @GetMapping("/stores/each")
+    public ArrayList<SalesPerStorePerMonth> getSalesEachMonth() {
+        try {
+            return ReceiptDAL.getStoreSalesEachMonth();
+        } catch (Exception e) {
+            System.out.println("Error getSalesEachMonth REST");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

@@ -25,7 +25,7 @@
                 let chartData = {
                     datasets: []
                 }
-                data.forEach(function(book) {
+                data.forEach(function (book) {
                     let r = Math.floor(Math.random() * 255);
                     let g = Math.floor(Math.random() * 255);
                     let b = Math.floor(Math.random() * 255);
@@ -62,7 +62,7 @@
                 let chartData = {
                     datasets: []
                 }
-                data.forEach(function(store) {
+                data.forEach(function (store) {
                     let r = Math.floor(Math.random() * 255);
                     let g = Math.floor(Math.random() * 255);
                     let b = Math.floor(Math.random() * 255);
@@ -98,7 +98,7 @@
                 let chartData = {
                     datasets: []
                 }
-                data.forEach(function(author) {
+                data.forEach(function (author) {
                     let r = Math.floor(Math.random() * 255);
                     let g = Math.floor(Math.random() * 255);
                     let b = Math.floor(Math.random() * 255);
@@ -113,6 +113,46 @@
                     });
                 });
                 renderScatterData(chartData, "Author Sales")
+            }
+        }
+        xmlHttp.send();
+    }
+
+    function getSalesPerStoreEachMonth() {
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "http://localhost:8080/receipts/stores/each");
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+        xmlHttp.onreadystatechange = function () {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+
+                let chartData = {
+                    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                    datasets: []
+                }
+
+                let lastStore = null;
+                data.forEach(function (point) {
+                    if (lastStore !== point.storeName) {
+                        lastStore = point.storeName;
+
+                        let r = Math.floor(Math.random() * 255);
+                        let g = Math.floor(Math.random() * 255);
+                        let b = Math.floor(Math.random() * 255);
+                        let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                        chartData.datasets.push({
+                            label: point.storeName,
+                            data: [point.salesTotal],
+                            fill: false,
+                            borderColor: rgb,
+                            tension: 0.1
+                        });
+                    } else {
+                        chartData.datasets[chartData.datasets.length - 1].data.push(point.salesTotal);
+                    }
+                });
+
+                renderLine(chartData);
             }
         }
         xmlHttp.send();
@@ -144,7 +184,7 @@
     // }
 
     function renderScatterData(data, type) {
-        if(currentChart) {
+        if (currentChart) {
             currentChart.destroy();
         }
 
@@ -185,6 +225,19 @@
         });
     }
 
+    function renderLine(data) {
+        if (currentChart) {
+            currentChart.destroy();
+        }
+
+        let graph = document.getElementById("adm_bookChart");
+
+        currentChart = new Chart(graph, {
+            type: "line",
+            data: data
+        });
+    }
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <body>
@@ -205,7 +258,7 @@
             <button onclick="getBookSales();">By Book</button>
             <button onclick="getStoreSales();">By Store</button>
             <button onclick="getAuthorSales();">By Author</button>
-            <button onclick="myFunc();">By Month</button>
+            <button onclick="getSalesPerStoreEachMonth();">By Month</button>
             <button onclick="showAll();">Show all</button>
         </nav>
     </div>
