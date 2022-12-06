@@ -146,6 +146,25 @@ function getBookBYTitle(){
     xmlHttp.send();
 }
 
+function getBookByAuthor(){
+    var findAuthor = document.getElementById("emp_Search").value;
+    bookResults.style.display = 'block';
+    console.log(findAuthor);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+            var objects = JSON.parse(this.responseText);
+            console.log(objects);
+            renderBooks(objects);
+        }
+    }
+    xmlHttp.open("GET", "http://localhost:8080/book/findAuthor/" + findAuthor, true);
+    xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
+    xmlHttp.send();
+
+}
+
 //as of now only grabs the first result
 function grabValue(){
     var grabISBN = document.getElementById("grabISBN").innerHTML;
@@ -180,6 +199,7 @@ function renderBooks(books) {
     }
 }
 
+//clear page when moving in between pages
 function sendBackReceipt() {
     var ISBN = document.getElementById("emp_ISBN").value;
     var price = document.getElementById("emp_Price").value;
