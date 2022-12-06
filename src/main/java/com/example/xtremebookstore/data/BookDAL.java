@@ -119,4 +119,27 @@ public class BookDAL {
         }
         return bookModel;
     }
+
+    public List<BookModel> findByAuthor(String author){
+        String sql = "SELECT * FROM `XTreme-Bookstore`.book_view WHERE authorName like (?)";
+        List<BookModel> bookModel = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, "%" + author + "%");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                BookModel found = new BookModel(rs.getString("ISBN"),
+                        rs.getString("Title"),
+                        rs.getInt("AuthorID"),
+                        rs.getString("AuthorName"),
+                        rs.getString("datePublished"),
+                        rs.getDouble("PurchasePrice"));
+                bookModel.add(found);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bookModel;
+    }
 }
