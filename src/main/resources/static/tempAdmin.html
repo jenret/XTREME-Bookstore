@@ -5,10 +5,13 @@
     <title>temp admin</title>
 </head>
 <script type="text/javascript">
+
     let authHeaderValue = "Basic " + btoa("superAdmin" + ":" + "superAdmin");
+    let currentChart;
+
     function getBookSales() {
         let month = document.getElementById("adm_displayMonth").value;
-        if(month === "") {
+        if (month === "") {
             month = "0";
         }
 
@@ -16,9 +19,28 @@
         xmlHttp.open("GET", "http://localhost:8080/receipts/books/" + month);
         xmlHttp.setRequestHeader("Authorization", authHeaderValue);
         xmlHttp.onreadystatechange = function () {
-            if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 let data = JSON.parse(this.responseText);
-                console.log(data);
+
+                let chartData = {
+                    datasets: []
+                }
+                data.forEach(function(book) {
+                    let r = Math.floor(Math.random() * 255);
+                    let g = Math.floor(Math.random() * 255);
+                    let b = Math.floor(Math.random() * 255);
+                    let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                    chartData.datasets.push({
+                        label: book.title,
+                        data: [{
+                            x: book.numberOfSales,
+                            y: book.salesTotal
+                        }],
+                        backgroundColor: rgb
+                    });
+                });
+
+                renderScatterData(chartData, "Books Sales");
             }
         }
         xmlHttp.send();
@@ -26,7 +48,7 @@
 
     function getStoreSales() {
         let month = document.getElementById("adm_displayMonth").value;
-        if(month === "") {
+        if (month === "") {
             month = "0";
         }
 
@@ -34,9 +56,27 @@
         xmlHttp.open("GET", "http://localhost:8080/receipts/stores/" + month);
         xmlHttp.setRequestHeader("Authorization", authHeaderValue);
         xmlHttp.onreadystatechange = function () {
-            if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 let data = JSON.parse(this.responseText);
-                console.log(data);
+
+                let chartData = {
+                    datasets: []
+                }
+                data.forEach(function(store) {
+                    let r = Math.floor(Math.random() * 255);
+                    let g = Math.floor(Math.random() * 255);
+                    let b = Math.floor(Math.random() * 255);
+                    let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                    chartData.datasets.push({
+                        label: store.storeName,
+                        data: [{
+                            x: store.numberOfSales,
+                            y: store.salesTotal
+                        }],
+                        backgroundColor: rgb
+                    });
+                });
+                renderScatterData(chartData, "Stores Sales")
             }
         }
         xmlHttp.send();
@@ -44,23 +84,109 @@
 
     function getAuthorSales() {
         let month = document.getElementById("adm_displayMonth").value;
-        if(month === "") {
+        if (month === "") {
             month = "0";
         }
 
         let xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", "http://localhost:8080/authors/stores/" + month);
+        xmlHttp.open("GET", "http://localhost:8080/receipts/authors/" + month);
         xmlHttp.setRequestHeader("Authorization", authHeaderValue);
         xmlHttp.onreadystatechange = function () {
-            if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 let data = JSON.parse(this.responseText);
-                console.log(data);
+
+                let chartData = {
+                    datasets: []
+                }
+                data.forEach(function(author) {
+                    let r = Math.floor(Math.random() * 255);
+                    let g = Math.floor(Math.random() * 255);
+                    let b = Math.floor(Math.random() * 255);
+                    let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                    chartData.datasets.push({
+                        label: author.authorName,
+                        data: [{
+                            x: author.numberOfSales,
+                            y: author.salesTotal
+                        }],
+                        backgroundColor: rgb
+                    });
+                });
+                renderScatterData(chartData, "Author Sales")
             }
         }
         xmlHttp.send();
     }
 
+    // example data
+    // {
+    //     datasets: [{
+    //         label: "Book Title Here",
+    //         data: [{
+    //             x: 5,
+    //             y: 25.2
+    //         }, {
+    //             x: 10,
+    //             y: 50
+    //         }],
+    //         backgroundColor: 'rgb(255, 99, 132)'
+    //     }, {
+    //         label: "Book Title Here 2",
+    //         data: [{
+    //             x: 2,
+    //             y: 10.0
+    //         }, {
+    //             x: 15,
+    //             y: 67.7
+    //         }],
+    //         backgroundColor: 'rgb(99,115,255)'
+    //     }]
+    // }
+
+    function renderScatterData(data, type) {
+        if(currentChart) {
+            currentChart.destroy();
+        }
+
+        let graph = document.getElementById("adm_bookChart");
+
+        currentChart = new Chart(graph, {
+            type: 'scatter',
+            data: data,
+            options: {
+                scales: {
+                    x: {
+                        min: 0,
+                        title: {
+                            display: true,
+                            text: "Number Of Sales"
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: "Sales Total"
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (data) {
+                                return data.dataset.label + ": " + data.dataset.data[data.dataIndex].x + ", $" + data.dataset.data[data.dataIndex].y;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <body>
 
 <h2>Admin</h2>
@@ -74,9 +200,9 @@
     <div>
         <h3>Sales Reports</h3>
         <label>Month: </label>
-        <input type="text" id="adm_displayMonth">
+        <input type="text" id="adm_displayMonth"/>
         <nav>
-            <button onclick="getBookSales()">By Book</button>
+            <button onclick="getBookSales();">By Book</button>
             <button onclick="getStoreSales();">By Store</button>
             <button onclick="getAuthorSales();">By Author</button>
             <button onclick="myFunc();">By Month</button>
