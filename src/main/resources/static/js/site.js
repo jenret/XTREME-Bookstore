@@ -235,6 +235,294 @@ function togglePage(role){
         admSect.style.display = 'none';
     }
 }
+
+// all js from the admin page
+
+let currentChart;
+
+function getBookSales() {
+    let month = document.getElementById("adm_displayMonth").value;
+    if (month === "") {
+        month = "0";
+    }
+
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "http://localhost:8080/receipts/books/" + month);
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            let data = JSON.parse(this.responseText);
+
+            let chartData = {
+                datasets: []
+            }
+            data.forEach(function (book) {
+                let r = Math.floor(Math.random() * 255);
+                let g = Math.floor(Math.random() * 255);
+                let b = Math.floor(Math.random() * 255);
+                let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                chartData.datasets.push({
+                    label: book.title,
+                    data: [{
+                        x: book.numberOfSales,
+                        y: book.salesTotal
+                    }],
+                    backgroundColor: rgb
+                });
+            });
+
+            renderScatterData(chartData, "Books Sales");
+        }
+    }
+    xmlHttp.send();
+}
+
+function getStoreSales() {
+    let month = document.getElementById("adm_displayMonth").value;
+    if (month === "") {
+        month = "0";
+    }
+
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "http://localhost:8080/receipts/stores/" + month);
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            let data = JSON.parse(this.responseText);
+
+            let chartData = {
+                datasets: []
+            }
+            data.forEach(function (store) {
+                let r = Math.floor(Math.random() * 255);
+                let g = Math.floor(Math.random() * 255);
+                let b = Math.floor(Math.random() * 255);
+                let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                chartData.datasets.push({
+                    label: store.storeName,
+                    data: [{
+                        x: store.numberOfSales,
+                        y: store.salesTotal
+                    }],
+                    backgroundColor: rgb
+                });
+            });
+            renderScatterData(chartData, "Stores Sales")
+        }
+    }
+    xmlHttp.send();
+}
+
+function getAuthorSales() {
+    let month = document.getElementById("adm_displayMonth").value;
+    if (month === "") {
+        month = "0";
+    }
+
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "http://localhost:8080/receipts/authors/" + month);
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            let data = JSON.parse(this.responseText);
+
+            let chartData = {
+                datasets: []
+            }
+            data.forEach(function (author) {
+                let r = Math.floor(Math.random() * 255);
+                let g = Math.floor(Math.random() * 255);
+                let b = Math.floor(Math.random() * 255);
+                let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                chartData.datasets.push({
+                    label: author.authorName,
+                    data: [{
+                        x: author.numberOfSales,
+                        y: author.salesTotal
+                    }],
+                    backgroundColor: rgb
+                });
+            });
+            renderScatterData(chartData, "Author Sales")
+        }
+    }
+    xmlHttp.send();
+}
+
+function getSalesPerStoreEachMonth() {
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "http://localhost:8080/receipts/stores/each");
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            let data = JSON.parse(this.responseText);
+
+            let chartData = {
+                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                datasets: []
+            }
+
+            let lastStore = null;
+            data.forEach(function (point) {
+                if (lastStore !== point.storeName) {
+                    lastStore = point.storeName;
+
+                    let r = Math.floor(Math.random() * 255);
+                    let g = Math.floor(Math.random() * 255);
+                    let b = Math.floor(Math.random() * 255);
+                    let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                    chartData.datasets.push({
+                        label: point.storeName,
+                        data: [point.salesTotal],
+                        fill: false,
+                        borderColor: rgb,
+                        tension: 0.1
+                    });
+                } else {
+                    chartData.datasets[chartData.datasets.length - 1].data.push(point.salesTotal);
+                }
+            });
+
+            renderLine(chartData);
+        }
+    }
+    xmlHttp.send();
+}
+
+// example data
+// {
+//     datasets: [{
+//         label: "Book Title Here",
+//         data: [{
+//             x: 5,
+//             y: 25.2
+//         }, {
+//             x: 10,
+//             y: 50
+//         }],
+//         backgroundColor: 'rgb(255, 99, 132)'
+//     }, {
+//         label: "Book Title Here 2",
+//         data: [{
+//             x: 2,
+//             y: 10.0
+//         }, {
+//             x: 15,
+//             y: 67.7
+//         }],
+//         backgroundColor: 'rgb(99,115,255)'
+//     }]
+// }
+
+function renderScatterData(data, type) {
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
+    let graph = document.getElementById("adm_bookChart");
+
+    currentChart = new Chart(graph, {
+        type: 'scatter',
+        data: data,
+        options: {
+            scales: {
+                x: {
+                    min: 0,
+                    title: {
+                        display: true,
+                        text: "Number Of Sales"
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: "Sales Total"
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (data) {
+                            return data.dataset.label + ": " + data.dataset.data[data.dataIndex].x + ", $" + data.dataset.data[data.dataIndex].y;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function renderLine(data) {
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
+    let graph = document.getElementById("adm_bookChart");
+
+    currentChart = new Chart(graph, {
+        type: "line",
+        data: data
+    });
+}
+
+function hideShowAdmin(view) {
+    let chartView = document.getElementById("adm_chartView");
+    let userView = document.getElementById("adm_UserManaging");
+    let bookView = document.getElementById("adm_Book");
+    console.log(bookView)
+    switch (view) {
+        case "chart":
+            chartView.style.display = "block";
+            userView.style.display = "none";
+            bookView.style.display = "none";
+            break;
+        case "user":
+            chartView.style.display = "none";
+            userView.style.display = "block";
+            bookView.style.display = "none";
+            break;
+        case "book":
+            console.log("Here")
+            chartView.style.display = "none";
+            userView.style.display = "none";
+            bookView.style.display = "block";
+            break;
+    }
+}
+
+function adm_createUser() {
+    let adm_newUser = document.getElementById("adm_newUsername").value;
+    let adm_newPass = document.getElementById("adm_password").value;
+    let adm_storeName = document.getElementById("adm_store").value;
+    let adm_isAdmin = document.getElementById("adm_isAdmin").value;
+    let role;
+    if (adm_isAdmin) {
+        role = "ADMIN"
+    } else {
+        role = "EMP"
+    }
+    let newUser = {
+        "username": adm_newUser,
+        "password": adm_newPass,
+        "role": role,
+        "fkStoreName": adm_storeName
+    }
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", "http://localhost:8080/users")
+    xmlHttp.setRequestHeader("Content-Type", "application/json")
+    xmlHttp.setRequestHeader("Authorization", authHeaderValue)
+    xmlHttp.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+            console.log("Successfully posted");
+        }
+    }
+    xmlHttp.send(JSON.stringify(newUser));
+}
+
 //Create new users in admin page
 
 window.onload = function () {

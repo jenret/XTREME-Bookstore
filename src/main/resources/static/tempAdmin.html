@@ -238,15 +238,66 @@
         });
     }
 
+    function hideShowAdmin(view) {
+        let chartView = document.getElementById("adm_chartView");
+        let userView = document.getElementById("adm_UserManaging");
+        let bookView = document.getElementById("adm_Book");
+        switch (view) {
+            case "chart":
+                chartView.style.display = "block";
+                userView.style.display = "none";
+                bookView.style.display = "none";
+                break;
+            case "user":
+                chartView.style.display = "none";
+                userView.style.display = "block";
+                bookView.style.display = "none";
+                break;
+            case "book":
+                chartView.style.display = "none";
+                userView.style.display = "none";
+                bookView.style.display = "block";
+                break;
+        }
+    }
+
+    function adm_createUser() {
+        let adm_newUser = document.getElementById("adm_newUsername").value;
+        let adm_newPass = document.getElementById("adm_password").value;
+        let adm_storeName = document.getElementById("adm_store").value;
+        let adm_isAdmin = document.getElementById("adm_isAdmin").value;
+        let role;
+        if (adm_isAdmin) {
+            role = "ADMIN"
+        } else {
+            role = "EMP"
+        }
+        let newUser = {
+            "username": adm_newUser,
+            "password": adm_newPass,
+            "role": role,
+            "fkStoreName": adm_storeName
+        }
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("POST", "http://localhost:8080/users")
+        xmlHttp.setRequestHeader("Content-Type", "application/json")
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue)
+        xmlHttp.onreadystatechange = function () {
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                console.log("Successfully posted");
+            }
+        }
+        xmlHttp.send(JSON.stringify(newUser));
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <body>
 
 <h2>Admin</h2>
 <nav>
-    <button>Books</button>
-    <button>Reports</button>
-    <button>User Managing</button>
+    <button onclick="hideShowAdmin('chart')">Reports</button>
+    <button onclick="hideShowAdmin('book')">Books</button>
+    <button onclick="hideShowAdmin('user')">User Managing</button>
 </nav>
 
 <section id="adm_chartView">
@@ -277,9 +328,21 @@
         </div>
     </section>
 </section>
-<section id="adm_UserManaging">
+<section id="adm_UserManaging" style="display: none">
+    <label for="adm_newUsername">Username: </label>
+    <input id="adm_newUsername" type="text">
+    <br>
+    <label for="adm_password">Password: </label>
+    <input id="adm_password" type="password">
+    <br>
+    <label for="adm_store">Store Name: </label>
+    <input id="adm_store" type="text">
+    <br>
+    <label for="adm_isAdmin">Is this person an admin? </label>
+    <input id="adm_isAdmin" type="checkbox">
+    <button id="adm_createUser" onclick="adm_createUser();">Create User</button>
 </section>
-<section id="adm_Book">
+<section id="adm_Book" style="display: none">
     <section id="adm_bookFormView">
         <div id="adm_bookForm" class="adm_bookForm">
             <label>ISBN: </label>
