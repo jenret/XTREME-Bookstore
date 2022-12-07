@@ -94,7 +94,7 @@ function addBook() {
     var object = {
         "ISBN": ISBN, //strings work fine
         "title": title, //string
-        "authorName": author, //int works fine
+        "author": author, //int works fine
         "publishDate": publish, //SQL date
         "edition": edition, //int
         "purchasePrice": price //double
