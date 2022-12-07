@@ -73,13 +73,14 @@
         <div>
             <h3>Sales Reports</h3>
             <label>Month: </label>
-            <input type="text" id="adm_displayMonth"/>
+            <input type="number" id="adm_displayMonth"/>
             <nav>
                 <button onclick="getBookSales();">By Book</button>
                 <button onclick="getStoreSales();">By Store</button>
                 <button onclick="getAuthorSales();">By Author</button>
                 <button onclick="getSalesPerStoreEachMonth();">Get Store Sales Per Month</button>
             </nav>
+            <div id="adm_chartError"></div>
         </div>
         <section id="adm_chartArea">
             <div class="adm_chartDiv">

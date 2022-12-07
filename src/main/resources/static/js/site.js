@@ -260,6 +260,7 @@ function togglePage(role) {
 let currentChart;
 
 function getBookSales() {
+    checkMonth();
     let month = document.getElementById("adm_displayMonth").value;
     if (month === "") {
         month = "0";
@@ -297,6 +298,7 @@ function getBookSales() {
 }
 
 function getStoreSales() {
+    checkMonth()
     let month = document.getElementById("adm_displayMonth").value;
     if (month === "") {
         month = "0";
@@ -366,6 +368,13 @@ function getAuthorSales() {
         }
     }
     xmlHttp.send();
+}
+
+function checkMonth() {
+    let month = document.getElementById("adm_displayMonth");
+    if(0 > month > 12) {
+        document.getElementById("adm_chartError").innerHTML = "Not a valid month. 0 for current month or 1-12";
+    }
 }
 
 function getSalesPerStoreEachMonth() {
