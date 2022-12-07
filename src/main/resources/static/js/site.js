@@ -1,9 +1,5 @@
 //this page would only show books available
-//ISBN will ID
 //keep track of what store the book is available
-//so when an employee logs in, make visible the receipt form
-//if admin, show how well the stores are doing, show sales etc.
-//render the login first, and then ^
 
 var authHeaderValue = null;
 var username = null;
@@ -12,6 +8,7 @@ var password = null;
 let empSect = document.getElementById("employee");
 let bookResults = document.getElementById("bookArea");
 let admSect = document.getElementById("adm_Section");
+
 //this is the function for the login
 function login() {
     username = document.getElementById('txtUsername').value;
@@ -31,7 +28,7 @@ function login() {
             //show logout and welcome message
             //save info for the session
             let role = this.responseText
-            userStorage(username, password,role);
+            userStorage(username, password, role);
             togglePage(role);
         } else if (this.readyState == XMLHttpRequest.DONE && this.status == 401) {
             document.getElementById("errorMsg").innerHTML = "Invalid Username or Password";
@@ -60,13 +57,19 @@ function toggleLogin() {
     var bookArea = document.getElementById("bookArea");
 
     if (loginForm.style.display === "none") {
-        //show login
+        //show login, when logging in :)
         loginForm.style.display = "block";
         logoutBtn.style.display = "none";
+        var error = document.getElementById("catchError").value = "";
     } else {
-        //hide login
+        //hide login, when logging out :)
         loginForm.style.display = "none";
         logoutBtn.style.display = "inline-block";
+        var search = document.getElementById("emp_Search").value = "";
+        var ISBN = document.getElementById("emp_ISBN").value = "";
+        var Price = document.getElementById("emp_Price").value = "";
+        var error = document.getElementById("catchError").innerHTML = "";
+
     }
     togglePage(localStorage.getItem("role"))
 }
@@ -76,7 +79,7 @@ function toggleLogin() {
 function userStorage(strUsername, strPassword, strRole) {
     sessionStorage.setItem("username", strUsername);
     sessionStorage.setItem("password", strPassword);
-    sessionStorage.setItem("role",strRole);
+    sessionStorage.setItem("role", strRole);
 }
 
 //addBook finally works
@@ -128,45 +131,56 @@ function getAllBooks() {
     xmlHttp.send();
 }
 
-function getBookBYTitle(){
+function getBookBYTitle() {
     var findTitle = document.getElementById("emp_Search").value;
-    bookResults.style.display = 'block';
-    console.log(findTitle);
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            var objects = JSON.parse(this.responseText);
-            console.log(objects);
-            renderBooks(objects);
+    var error = document.getElementById("catchError");
+    if (findTitle == "") {
+        error.innerHTML = "Title search field empty. Please add a title and try again";
+    } else {
+        error.innerHTML = "";
+        bookResults.style.display = 'block';
+        console.log(findTitle);
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                var objects = JSON.parse(this.responseText);
+                console.log(objects);
+                renderBooks(objects);
+            }
         }
+        xmlHttp.open("GET", "http://localhost:8080/book/find/" + findTitle, true);
+        xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
+        xmlHttp.send();
     }
-    xmlHttp.open("GET", "http://localhost:8080/book/find/" + findTitle, true);
-    xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
-    xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
-    xmlHttp.send();
 }
 
-function getBookByAuthor(){
+function getBookByAuthor() {
     var findAuthor = document.getElementById("emp_Search").value;
-    bookResults.style.display = 'block';
-    console.log(findAuthor);
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            var objects = JSON.parse(this.responseText);
-            console.log(objects);
-            renderBooks(objects);
+    var error = document.getElementById("catchError");
+    if (findAuthor == "") {
+        error.innerHTML = "Author search field empty. PLease add a author and try again";
+    } else {
+        error.innerHTML = "";
+        bookResults.style.display = 'block';
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                var objects = JSON.parse(this.responseText);
+                console.log(objects);
+                renderBooks(objects);
+            }
         }
+        xmlHttp.open("GET", "http://localhost:8080/book/findAuthor/" + findAuthor, true);
+        xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
+        xmlHttp.send();
     }
-    xmlHttp.open("GET", "http://localhost:8080/book/findAuthor/" + findAuthor, true);
-    xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
-    xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
-    xmlHttp.send();
 
 }
 
 //as of now only grabs the first result
-function grabValue(isbn, value){
+function grabValue(isbn, value) {
     document.getElementById("emp_ISBN").value = isbn;
     document.getElementById("emp_Price").value = value;
 }
@@ -220,21 +234,23 @@ function sendBackReceipt() {
     var ISBN = document.getElementById("emp_ISBN").value = "";
     var price = document.getElementById("emp_Price").value = "";
 }
-function togglePage(role){
-    if(role =="[ROLE_ADMIN]"){
+
+function togglePage(role) {
+    if (role == "[ROLE_ADMIN]") {
         empSect.style.display = 'none';
         bookResults.style.display = 'none'; //to make this area appear when searching
         admSect.style.display = 'block';
-    }else if(role =="[ROLE_EMP]"){
+    } else if (role == "[ROLE_EMP]") {
         empSect.style.display = 'block';
         bookResults.style.display = 'none';
         admSect.style.display = 'none'
-    }else{
+    } else {
         empSect.style.display = 'none';
         bookResults.style.display = 'none';
         admSect.style.display = 'none';
     }
 }
+
 
 // all js from the admin page
 
