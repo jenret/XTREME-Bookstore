@@ -10,9 +10,11 @@ body {
 }
 
 h1 {
+    background-color: #FBFF12;
     color: #272932;
     font-family: 'Righteous', cursive;
     font-size: 60px;
+    padding: 10px;
 }
 
 h2 {
@@ -28,19 +30,54 @@ label, button {
 }
 
 input {
-    width: 100px;
+    width: 150px;
+    height: 20px;
     margin: 3px 0 3px 0;
     padding: 3px;
+}
+
+label {
+    padding: 3px;
+    margin: 3px;
+}
+
+button {
+    background-color: #F45B69;
+    color: #EBEBEB;
+    font-size: 15px;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5%;
+}
+
+button:hover {
+    background-color: #d5404d;
 }
 
 .logoutBtn {
     justify-items: right;
     right: 10px;
     position: absolute;
+    padding: 15px;
+    font-size: 20px;
+    background-color: #118AB2;
+    color: #EBEBEB;
+    border: none;
+    border-radius: 10%;
+}
+
+.logoutBtn:hover, .loginBtn:hover {
+    background-color: #0d6d8d;
+}
+
+.loginBtn {
     padding: 10px;
     font-size: 15px;
     background-color: #118AB2;
     color: #EBEBEB;
+    border: none;
+    border-radius: 10%;
 }
 
 /*try to align the table within the scroll table*/

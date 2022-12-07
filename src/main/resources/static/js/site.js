@@ -532,10 +532,3 @@ window.onload = function () {
     admSect.style.display = "none";
     empSect.style.display = "none";
 }
-
-//ben have error with this :( only commented out for sake of clairty
-//chart javascript
-const ctx1 = document.getElementById('bookChart').getContext('2d');
-const ctx2 = document.getElementById('storeChart').getContext('2d');
-const ctx3 = document.getElementById('authorChart').getContext('2d');
-const ctx4 = document.getElementById('monthChart').getContext('2d');
