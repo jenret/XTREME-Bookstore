@@ -25,6 +25,10 @@ h2 {
     justify-content: center;
 }
 
+h3 {
+    font-family: 'Staatliches', cursive;
+}
+
 label, button {
     font-family: 'Yantramanav', sans-serif;
 }
@@ -108,7 +112,30 @@ table, th, td{
     padding: 5px;
 }
 
-/*animation*/
+/*text animation*/
+/* lineup class and keyframes */
+.lineUp {
+    animation: 2s anim-lineUp ease-out;
+}
+@keyframes anim-lineUp {
+    0% {
+        opacity: 0;
+        transform: translateY(80%);
+    }
+    20% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+/*house animation*/
 
 .container{
     height: 350px;
