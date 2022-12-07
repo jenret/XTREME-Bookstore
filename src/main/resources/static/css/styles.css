@@ -111,15 +111,14 @@ table, th, td{
 /*animation*/
 
 .container{
-    margin: 40% 0 5% 75%;
     height: 350px;
     width: 350px;
     border-radius: 50%;
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left:0;
+    position: relative;
+    top: 20%;
     right: 0;
+    bottom: 0;
+    left: 80%;
 }
 .snow{
     height: 40px;
