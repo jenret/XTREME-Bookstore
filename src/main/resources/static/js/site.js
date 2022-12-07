@@ -85,12 +85,13 @@ function userStorage(strUsername, strPassword, strRole) {
 //addBook finally works
 function addBook() {
     //tell them the book has been added :)
-    var ISBN = document.getElementById("ISBN").value;
-    var title = document.getElementById("title").value;
-    var author = document.getElementById("author").value;
-    var publish = document.getElementById("publishDate").value;
-    var edition = document.getElementById("edition").value;
-    var price = document.getElementById("price").value;
+    var ISBN = document.getElementById("adm_ISBN").value;
+    var title = document.getElementById("adm_title").value;
+    var author = document.getElementById("adm_author").value;
+    var publish = document.getElementById("adm_publishDate").value;
+    var edition = document.getElementById("adm_edition").value;
+    var price = document.getElementById("adm_price").value;
+    var error = document.getElementById("adm_catchError");
     var object = {
         "ISBN": ISBN, //strings work fine
         "title": title, //string
@@ -107,15 +108,16 @@ function addBook() {
         console.log("Ready state " + this.status);
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
             getAllBooks();
+            error.innerHTML = "Book is ready to be sold"
         }
     }
     xmlHttp.send(JSON.stringify(object));
-    var ISBN = document.getElementById("ISBN").value = "";
-    var title = document.getElementById("title").value = "";
-    var author = document.getElementById("author").value = "";
-    var publish = document.getElementById("publishDate").value = "";
-    var edition = document.getElementById("edition").value = "";
-    var price = document.getElementById("price").value = "";
+    var ISBN = document.getElementById("adm_ISBN").value = "";
+    var title = document.getElementById("adm_title").value = "";
+    var author = document.getElementById("adm_author").value = "";
+    var publish = document.getElementById("adm_publishDate").value = "";
+    var edition = document.getElementById("adm_edition").value = "";
+    var price = document.getElementById("adm_price").value = "";
 }
 
 //all good
