@@ -136,7 +136,7 @@ function getAllBooks() {
 function getBookBYTitle() {
     var findTitle = document.getElementById("emp_Search").value;
     var error = document.getElementById("catchError");
-    if (findTitle == "") {
+    if (findTitle == "" || findTitle == " ") {
         error.innerHTML = "Title search field empty. Please add a title and try again";
     } else {
         error.innerHTML = "";
@@ -160,7 +160,7 @@ function getBookBYTitle() {
 function getBookByAuthor() {
     var findAuthor = document.getElementById("emp_Search").value;
     var error = document.getElementById("catchError");
-    if (findAuthor == "") {
+    if (findAuthor == "" || findAuthor == " ") {
         error.innerHTML = "Author search field empty. PLease add a author and try again";
     } else {
         error.innerHTML = "";
