@@ -4,10 +4,12 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Staatliches&family=Yantramanav&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Staatliches&family=Yantramanav&display=swap"
+          rel="stylesheet">
     <meta charset="UTF-8">
     <title>XtremeBookStore</title>
     <script src="js/site.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <nav>
 
@@ -58,10 +60,88 @@
 </section>
 
 <section id="adm_Section">
-    <h1 id="testStuff">This is the admin Section</h1>
-    <div id="books"></div>
-    <div id="users"></div>
-    <div id="data"></div>
+
+    <h2>Admin</h2>
+    <nav>
+        <button onclick="hideShowAdmin('chart')">Reports</button>
+        <button onclick="hideShowAdmin('book')">Books</button>
+        <button onclick="hideShowAdmin('user')">User Managing</button>
+    </nav>
+
+    <section id="adm_chartView">
+        <div>
+            <h3>Sales Reports</h3>
+            <label>Month: </label>
+            <input type="text" id="adm_displayMonth"/>
+            <nav>
+                <button onclick="getBookSales();">By Book</button>
+                <button onclick="getStoreSales();">By Store</button>
+                <button onclick="getAuthorSales();">By Author</button>
+                <button onclick="getSalesPerStoreEachMonth();">Get Store Sales Per Month</button>
+            </nav>
+        </div>
+        <section id="adm_chartArea">
+            <div class="adm_chartDiv">
+                <canvas id="adm_bookChart"></canvas>
+            </div>
+            <div class="adm_chartDiv">
+                <canvas id="adm_storeChart"></canvas>
+            </div>
+            <div class="adm_chartDiv">
+                <canvas id="adm_authorChart"></canvas>
+            </div>
+            <div class="adm_chartDiv">
+                <canvas id="adm_monthChart"></canvas>
+            </div>
+        </section>
+    </section>
+    <section id="adm_UserManaging" style="display: none">
+        <label for="adm_newUsername">Username: </label>
+        <input id="adm_newUsername" type="text">
+        <br>
+        <label for="adm_password">Password: </label>
+        <input id="adm_password" type="password">
+        <br>
+        <label for="adm_store">Store Name: </label>
+        <input id="adm_store" type="text">
+        <br>
+        <label for="adm_isAdmin">Is this person an admin? </label>
+        <input id="adm_isAdmin" type="checkbox">
+        <button id="adm_createUser" onclick="adm_createUser();">Create User</button>
+    </section>
+    <section id="adm_Book" style="display: none">
+        <section id="adm_bookFormView">
+            <div id="adm_bookForm" class="adm_bookForm">
+                <label>ISBN: </label>
+                <input type="text" id="adm_ISBN" required/>
+                <br/>
+                <label>Title: </label>
+                <input type="text" id="adm_title"/>
+                <br/>
+                <label>Author ID: </label>
+                <input type="text" id="adm_author"/>
+                <br/>
+                <label>Publish Date: </label>
+                <input type="text" id="adm_publishDate" placeholder="YYYY-MM-DD"/>
+                <br/>
+                <label>Edition: </label>
+                <input type="text" id="adm_edition"/>
+                <br/>
+                <label>Price: </label>
+                <input type="text" id="adm_price" required/>
+                <br/>
+                <label>Store ID: </label>
+                <input type="number">
+                <br/>
+                <button onclick="addBook();">Add Book</button>
+            </div>
+        </section>
+        <section id="adm_bookView">
+            <div id="adm_bookArea" class="adm_bookArea">
+                <ul id="adm_bookList"></ul>
+            </div>
+        </section>
+    </section>
 </section>
 </body>
 </html>
