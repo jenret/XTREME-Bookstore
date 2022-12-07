@@ -92,32 +92,36 @@ function addBook() {
     var edition = document.getElementById("adm_edition").value;
     var price = document.getElementById("adm_price").value;
     var error = document.getElementById("adm_catchError");
-    var object = {
-        "ISBN": ISBN, //strings work fine
-        "title": title, //string
-        "author": author, //int works fine
-        "publishDate": publish, //SQL date
-        "edition": edition, //int
-        "purchasePrice": price //double
-    }
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost:8080/book/create");
-    xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
-    xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
-    xmlHttp.onreadystatechange = function () {
-        console.log("Ready state " + this.status);
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            getAllBooks();
-            error.innerHTML = "Book is ready to be sold"
+    if(ISBN == ""|| title == ""|| author == ""|| publish ==""|| price==""){
+        error.innerHTML = "Fields are empty. Please add an actual book ._."
+    } else {
+        var object = {
+            "ISBN": ISBN, //strings work fine
+            "title": title, //string
+            "author": author, //int works fine
+            "publishDate": publish, //SQL date
+            "edition": edition, //int
+            "purchasePrice": price //double
         }
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("POST", "http://localhost:8080/book/create");
+        xmlHttp.setRequestHeader("Content-Type", "application/json"); //sends json
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue); //put auth header into request header
+        xmlHttp.onreadystatechange = function () {
+            console.log("Ready state " + this.status);
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                getAllBooks();
+                error.innerHTML = "Book is ready to be sold"
+            }
+        }
+        xmlHttp.send(JSON.stringify(object));
+        var ISBN = document.getElementById("adm_ISBN").value = "";
+        var title = document.getElementById("adm_title").value = "";
+        var author = document.getElementById("adm_author").value = "";
+        var publish = document.getElementById("adm_publishDate").value = "";
+        var edition = document.getElementById("adm_edition").value = "";
+        var price = document.getElementById("adm_price").value = "";
     }
-    xmlHttp.send(JSON.stringify(object));
-    var ISBN = document.getElementById("adm_ISBN").value = "";
-    var title = document.getElementById("adm_title").value = "";
-    var author = document.getElementById("adm_author").value = "";
-    var publish = document.getElementById("adm_publishDate").value = "";
-    var edition = document.getElementById("adm_edition").value = "";
-    var price = document.getElementById("adm_price").value = "";
 }
 
 //all good
