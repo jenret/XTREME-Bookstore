@@ -22,17 +22,20 @@
 </div>
 </body>
 <script>
+  let authHeaderValue = "Basic "+btoa("superAdmin:superAdmin")
   function adm_createUser(){
     let adm_newUser = document.getElementById("adm_newUsername").value;
     let adm_newPass = document.getElementById("adm_password").value;
     let adm_storeName = document.getElementById("adm_store").value;
     let adm_isAdmin = document.getElementById("adm_isAdmin").value;
     let role;
-    if(adm_isAdmin){
+    console.log(adm_isAdmin)
+    if(adm_isAdmin.checked){
       role = "ADMIN"
     }else{
       role="EMP"
     }
+    console.log(role)
     let newUser = {
       "username":adm_newUser,
       "password":adm_newPass,

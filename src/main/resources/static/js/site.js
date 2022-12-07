@@ -537,8 +537,9 @@ function adm_createUser() {
     let adm_newPass = document.getElementById("adm_password").value;
     let adm_storeName = document.getElementById("adm_store").value;
     let adm_isAdmin = document.getElementById("adm_isAdmin").value;
+    let adm_showSuccess = document.getElementById("adm_userCreated");
     let role;
-    if (adm_isAdmin) {
+    if (adm_isAdmin.checked) {
         role = "ADMIN"
     } else {
         role = "EMP"
@@ -556,9 +557,23 @@ function adm_createUser() {
     xmlHttp.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
             console.log("Successfully posted");
+            adm_showSuccess.innerText ="User Added";
+        }else {
+            adm_showSuccess.innerText = "Something went wrong.";
         }
     }
-    xmlHttp.send(JSON.stringify(newUser));
+    if(adm_newUser==""||adm_newUser==" "){
+        adm_showSuccess.innerText = "Can't be null";
+    }
+    if(adm_newPass==""||adm_newPass==" "){
+        adm_showSuccess.innerText = "Can't be null";
+    }
+    if(adm_storeName==""||adm_storeName==" "){
+        adm_storeName.innerText = "Can't be null"
+    }else{
+        xmlHttp.send(JSON.stringify(newUser));
+    }
+
 }
 
 //Create new users in admin page
