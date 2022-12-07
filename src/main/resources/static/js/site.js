@@ -84,6 +84,7 @@ function userStorage(strUsername, strPassword, strRole) {
 
 //addBook finally works
 function addBook() {
+    //tell them the book has been added :)
     var ISBN = document.getElementById("ISBN").value;
     var title = document.getElementById("title").value;
     var author = document.getElementById("author").value;
@@ -105,7 +106,6 @@ function addBook() {
     xmlHttp.onreadystatechange = function () {
         console.log("Ready state " + this.status);
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            console.log("Successfully posted");
             getAllBooks();
         }
     }
@@ -215,6 +215,7 @@ function renderBooks(books) {
 function sendBackReceipt() {
     var ISBN = document.getElementById("emp_ISBN").value;
     var price = document.getElementById("emp_Price").value;
+    var error = document.getElementById("catchError");
     var object = {
         "bookISBN": ISBN,
         "salePrice": price
@@ -226,7 +227,7 @@ function sendBackReceipt() {
     xmlHttp.onreadystatechange = function () {
         console.log("Ready state ", this.status);
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            console.log("Successfully posted");
+            error.innerHTML = "Thank you for your purchase";
             getAllBooks();
         }
     }
