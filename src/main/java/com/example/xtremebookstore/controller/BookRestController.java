@@ -15,7 +15,6 @@ public class BookRestController { //add CRUD operations in here
 
     @PostMapping("/create")
     @ResponseBody
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMP')")
     public void createBook(@RequestBody BookModel object){
         bDAL.addBook(object);
     }
