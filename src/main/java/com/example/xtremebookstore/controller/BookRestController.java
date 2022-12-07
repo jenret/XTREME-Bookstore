@@ -18,6 +18,8 @@ public class BookRestController { //add CRUD operations in here
     public void createBook(@RequestBody BookModel object){
         bDAL.addBook(object);
     }
+
+
     @GetMapping("/findAll")
     //@PreAuthorize("hasAnyRole('ADMIN','EMP')")
     public List<BookModel> findAll(){
