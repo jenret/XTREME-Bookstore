@@ -260,124 +260,134 @@ function togglePage(role) {
 let currentChart;
 
 function getBookSales() {
-    checkMonth();
-    let month = document.getElementById("adm_displayMonth").value;
-    if (month === "") {
-        month = "0";
-    }
-
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "http://localhost:8080/receipts/books/" + month);
-    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
-    xmlHttp.onreadystatechange = function () {
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            let data = JSON.parse(this.responseText);
-
-            let chartData = {
-                datasets: []
-            }
-            data.forEach(function (book) {
-                let r = Math.floor(Math.random() * 255);
-                let g = Math.floor(Math.random() * 255);
-                let b = Math.floor(Math.random() * 255);
-                let rgb = "rgb(" + r + "," + g + "," + b + ")";
-                chartData.datasets.push({
-                    label: book.title,
-                    data: [{
-                        x: book.numberOfSales,
-                        y: book.salesTotal
-                    }],
-                    backgroundColor: rgb
-                });
-            });
-
-            renderScatterData(chartData, "Books Sales");
+    if(checkMonth()) {
+        let month = document.getElementById("adm_displayMonth").value;
+        if (month === "") {
+            month = "0";
         }
+
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "http://localhost:8080/receipts/books/" + month);
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+        xmlHttp.onreadystatechange = function () {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+
+                let chartData = {
+                    datasets: []
+                }
+                data.forEach(function (book) {
+                    let r = Math.floor(Math.random() * 255);
+                    let g = Math.floor(Math.random() * 255);
+                    let b = Math.floor(Math.random() * 255);
+                    let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                    chartData.datasets.push({
+                        label: book.title,
+                        data: [{
+                            x: book.numberOfSales,
+                            y: book.salesTotal
+                        }],
+                        backgroundColor: rgb
+                    });
+                });
+
+                renderScatterData(chartData, "Books Sales");
+            }
+        }
+        xmlHttp.send();
     }
-    xmlHttp.send();
 }
 
 function getStoreSales() {
-    checkMonth()
-    let month = document.getElementById("adm_displayMonth").value;
-    if (month === "") {
-        month = "0";
-    }
-
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "http://localhost:8080/receipts/stores/" + month);
-    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
-    xmlHttp.onreadystatechange = function () {
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            let data = JSON.parse(this.responseText);
-
-            let chartData = {
-                datasets: []
-            }
-            data.forEach(function (store) {
-                let r = Math.floor(Math.random() * 255);
-                let g = Math.floor(Math.random() * 255);
-                let b = Math.floor(Math.random() * 255);
-                let rgb = "rgb(" + r + "," + g + "," + b + ")";
-                chartData.datasets.push({
-                    label: store.storeName,
-                    data: [{
-                        x: store.numberOfSales,
-                        y: store.salesTotal
-                    }],
-                    backgroundColor: rgb
-                });
-            });
-            renderScatterData(chartData, "Stores Sales")
+    if(checkMonth()) {
+        let month = document.getElementById("adm_displayMonth").value;
+        if (month === "") {
+            month = "0";
         }
+
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "http://localhost:8080/receipts/stores/" + month);
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+        xmlHttp.onreadystatechange = function () {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+
+                let chartData = {
+                    datasets: []
+                }
+                data.forEach(function (store) {
+                    let r = Math.floor(Math.random() * 255);
+                    let g = Math.floor(Math.random() * 255);
+                    let b = Math.floor(Math.random() * 255);
+                    let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                    chartData.datasets.push({
+                        label: store.storeName,
+                        data: [{
+                            x: store.numberOfSales,
+                            y: store.salesTotal
+                        }],
+                        backgroundColor: rgb
+                    });
+                });
+                renderScatterData(chartData, "Stores Sales")
+            }
+        }
+        xmlHttp.send();
     }
-    xmlHttp.send();
 }
 
 function getAuthorSales() {
-    let month = document.getElementById("adm_displayMonth").value;
-    if (month === "") {
-        month = "0";
-    }
-
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "http://localhost:8080/receipts/authors/" + month);
-    xmlHttp.setRequestHeader("Authorization", authHeaderValue);
-    xmlHttp.onreadystatechange = function () {
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            let data = JSON.parse(this.responseText);
-
-            let chartData = {
-                datasets: []
-            }
-            data.forEach(function (author) {
-                let r = Math.floor(Math.random() * 255);
-                let g = Math.floor(Math.random() * 255);
-                let b = Math.floor(Math.random() * 255);
-                let rgb = "rgb(" + r + "," + g + "," + b + ")";
-                chartData.datasets.push({
-                    label: author.authorName,
-                    data: [{
-                        x: author.numberOfSales,
-                        y: author.salesTotal
-                    }],
-                    backgroundColor: rgb
-                });
-            });
-            renderScatterData(chartData, "Author Sales")
+    if(checkMonth()) {
+        let month = document.getElementById("adm_displayMonth").value;
+        if (month === "") {
+            month = "0";
         }
+
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "http://localhost:8080/receipts/authors/" + month);
+        xmlHttp.setRequestHeader("Authorization", authHeaderValue);
+        xmlHttp.onreadystatechange = function () {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+
+                let chartData = {
+                    datasets: []
+                }
+                data.forEach(function (author) {
+                    let r = Math.floor(Math.random() * 255);
+                    let g = Math.floor(Math.random() * 255);
+                    let b = Math.floor(Math.random() * 255);
+                    let rgb = "rgb(" + r + "," + g + "," + b + ")";
+                    chartData.datasets.push({
+                        label: author.authorName,
+                        data: [{
+                            x: author.numberOfSales,
+                            y: author.salesTotal
+                        }],
+                        backgroundColor: rgb
+                    });
+                });
+                renderScatterData(chartData, "Author Sales")
+            }
+        }
+        xmlHttp.send();
     }
-    xmlHttp.send();
 }
 
 function checkMonth() {
-    let month = document.getElementById("adm_displayMonth");
-    if(0 > month > 12) {
+    let month = document.getElementById("adm_displayMonth").value;
+    if((0 > month || month > 12) && month !== "") {
+        console.log("Here")
         document.getElementById("adm_chartError").innerHTML = "Not a valid month. 0 for current month or 1-12";
+        return false;
+    } else {
+        document.getElementById("adm_chartError").innerHTML = "";
+        return true;
     }
 }
 
 function getSalesPerStoreEachMonth() {
+    document.getElementById("adm_chartError").innerHTML = "";
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", "http://localhost:8080/receipts/stores/each");
     xmlHttp.setRequestHeader("Authorization", authHeaderValue);
